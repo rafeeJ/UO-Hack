@@ -4,7 +4,16 @@
     }
 
     #mobile {
+        padding: 1rem;
         background-color: lightblue;
-        height: calc( 100vh - 2 * 56px );
+        height: calc(100vh - (2 * 56px) - 2rem);
+
+        display: flex;
+        flex-direction: column;
     }
-  }
+}
+
+#login-card {
+    margin-top: 1rem;
+    text-align: center;
+}
