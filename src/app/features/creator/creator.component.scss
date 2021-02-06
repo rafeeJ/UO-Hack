@@ -20,5 +20,6 @@ agm-map {
     }
 }
 
-
-
+#creator-view {
+    height: calc(100vh - (2 * 56px));
+}

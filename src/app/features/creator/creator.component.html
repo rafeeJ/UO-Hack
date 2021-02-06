@@ -11,13 +11,13 @@
 </ng-template>
 
 <ng-template #elseBlock>
-    <div style="text-align: center;">
+    <div id="creator-view" style="text-align: center;">
     <div [ngSwitch]="createStep">
         <!-- Take photo -->
         <app-camera    *ngSwitchCase=1    (cameraEvent)="receiveCameraEvent($event)"></app-camera>
         <!-- Enter Location -->
         <div           *ngSwitchCase=2>
-            <div>
+            <div style="background-color: rgba(0, 0, 0, 0.38);">
                 <agm-map
                 [latitude]="lat"
                 [longitude]="lng"
@@ -33,11 +33,11 @@
                 </agm-map>
             </div>
             <!-- Create the challenge -->
-            <button (click)="submitChallenge()">Submit Challenge</button>
+            <button style="float: right; margin-right: 69px;" mat-raised-button (click)="submitChallenge()">Submit Challenge</button>
         </div>
     </div>
 <!-- Cancel at any point -->
-<button mat-raised-button (click)="cancelCreateChallenge()">Cancel</button>
+<button mat-raised-button color="warn" (click)="cancelCreateChallenge()">Cancel</button>
 </div>
 </ng-template>
        
