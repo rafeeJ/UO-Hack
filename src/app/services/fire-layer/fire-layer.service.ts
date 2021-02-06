@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@angular/fire/firestore';
 import { Challenge, challengeConverter } from 'src/app/services/fire-layer/challenge';
 import { User } from './user';
 import { AuthService } from '../auth-service/auth.service';
@@ -38,10 +38,10 @@ export class FireLayerService {
     return this.challengeCollection.snapshotChanges();
   }
     
-  createChallenge(challenge: Challenge) { 
+ createChallenge(challenge: Challenge) { 
     return new Promise<any>((resolve, reject)=> {
       this.challengeCollection
-      .add(challenge)
+      .add(Object.assign({}, challenge))
       .then(res => {}, err => reject(err));
     })
   }
