@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ExplorerComponent } from './features/explorer/explorer.component';
 import { CreatorComponent } from './features/creator/creator.component';
 import { LandingComponent } from './features/landing/landing.component';
+import { TopNavBarComponent } from './features/global/top-nav-bar/top-nav-bar.component';
 
 // Firebase stuff here
 import { AngularFireModule } from '@angular/fire';
@@ -19,7 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { BottomNavBarComponent } from './features/global/bottom-nav-bar/bottom-nav-bar.component';
 
 
 const firebaseConfig = {
@@ -35,7 +37,9 @@ const firebaseConfig = {
     AppComponent,
     ExplorerComponent,
     CreatorComponent,
-    LandingComponent
+    LandingComponent,
+    TopNavBarComponent,
+    BottomNavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,8 @@ const firebaseConfig = {
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
