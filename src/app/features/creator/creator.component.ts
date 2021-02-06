@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Challenge } from 'src/app/services/fire-layer/challenge';
 import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service';
+import { Coordinates } from 'src/app/services/fire-layer/coordinates';
 
 @Component({
   selector: 'app-creator',
@@ -133,7 +134,7 @@ export class CreatorComponent implements OnInit {
   }
 
   submitChallenge() {
-    var challenge: Challenge = new Challenge('testUID', this.user.uid, [this.lng, this.lat], this.photoURL, []);
+    var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
     this.fireLayerService.createChallenge(challenge);
     this.chooseLocationView = false;
     this.createChallengeView = false;
