@@ -120,7 +120,7 @@ export class CreatorComponent implements OnInit {
     this.lng = $event.latLng.lng();
   }
 
-  submitChallenge() {
+  createChallenge() {
     // Build a Challenge object from user data.
     var challenge: Challenge = new Challenge('testUID', this.user.uid, [this.lng, this.lat], this.photoURL, []);
     // Add the new challenge to Firestore.
