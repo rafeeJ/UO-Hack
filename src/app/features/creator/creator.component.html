@@ -1,1 +1,24 @@
-<p>creator works!</p>
+<div>
+    <!-- View Your Challenges -->
+    <div *ngIf="!createChallengeView">
+        <h1>Your Challenges</h1>
+        <ul *ngFor="let challenge of challenges">
+            <img src="{{ challenge.photoURL }}" width=500 height=500>
+        </ul>
+        <button (click)="createChallengeView = true">Create Challenge!</button>
+    </div>
+
+    <!-- Create Challenge -->
+    <div *ngIf="createChallengeView">
+        <!-- Take photo -->
+        <app-camera *ngIf="createStep == 1" (cameraEvent)="receiveCameraEvent($event)"></app-camera>
+        <!-- Enter Location -->
+        <div *ngIf="createStep == 2">
+            <p>Enter location...</p>
+            <!-- Create the challenge -->
+            <button (click)="createChallenge()">Create Challenge</button>
+        </div>
+        <!-- Cancel at any point -->
+        <button (click)="cancelCreateChallenge()">Cancel</button>
+    </div>
+</div>
