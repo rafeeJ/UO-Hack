@@ -48,10 +48,9 @@ export class FireLayerService {
   }
 
   createChallenge(challenge: Challenge) {
-    delete challenge.uid;
     challenge.location = Object.assign({}, challenge.location);
     return new Promise<any>((resolve, reject) => {
-      this.challengeCollection.add(Object.assign({}, challenge)).then(
+      this.challengeCollection.doc(challenge.uid).set(Object.assign({}, challenge)).then(
         (res) => {},
         (err) => reject(err)
       );
