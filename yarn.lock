@@ -6349,6 +6349,13 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ngx-webcam@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/ngx-webcam/-/ngx-webcam-0.3.2.tgz#5cbfecea0e0ed025b8e2bbd4b3ce09db3038c0b4"
+  integrity sha512-7imKrqc8b/CtLZ9g79fenCXcEwUxsi/4mdTnoSdwdbVHtU1pUmebxUNFPBEdEitiD09awGkcv2ZcgtqmJvIi8A==
+  dependencies:
+    tslib "^2.0.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
