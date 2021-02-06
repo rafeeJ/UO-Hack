@@ -1,13 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { CreatorComponent } from './features/creator/creator.component';
+import { LandingComponent } from './features/landing/landing.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CreatorComponent
-  }
+  { path: '', component: LandingComponent }
 ];
 
 @NgModule({
