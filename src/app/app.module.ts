@@ -14,7 +14,7 @@ import { TopNavBarComponent } from './features/global/top-nav-bar/top-nav-bar.co
 // Firebase stuff here
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import {AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 //import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 import { BottomNavBarComponent } from './features/global/bottom-nav-bar/bottom-nav-bar.component';
 
 import { AgmCoreModule } from '@agm/core';
@@ -32,6 +33,7 @@ import { ExplorerMapComponent } from './features/explorer/explorer-map/explorer-
 import { ExplorerViewPhotoComponent } from './features/explorer/explorer-view-photo/explorer-view-photo.component';
 import { ExplorerTakePhotoComponent } from './features/explorer/explorer-take-photo/explorer-take-photo.component';
 import { ChallengeCardComponent } from './features/creator/challenge-card/challenge-card.component';
+import { LeaderboardComponent } from './features/leaderboard/leaderboard.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg',
@@ -54,6 +56,7 @@ const firebaseConfig = {
     TopNavBarComponent,
     BottomNavBarComponent,
     ChallengeCardComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,15 +72,14 @@ const firebaseConfig = {
     WebcamModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatTableModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     MatMenuModule,
   ],
-  providers: [
-    { provide: BUCKET, useValue: 'uo-hack.appspot.com' }
-  ],
-  bootstrap: [AppComponent]
+  providers: [{ provide: BUCKET, useValue: 'uo-hack.appspot.com' }],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

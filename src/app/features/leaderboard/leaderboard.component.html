@@ -1,0 +1,22 @@
+<h1>Leaderboard</h1>
+
+<mat-table class="lessons-table mat-elevation-z8" [dataSource]="dataSource">
+  <ng-container matColumnDef="img">
+    <th *matHeaderCellDef>img</th>
+    <td *matCellDef="let users"><img src="{{ users.photoURL }}" /></td>
+  </ng-container>
+
+  <ng-container matColumnDef="displayName">
+    <th *matHeaderCellDef>Name</th>
+    <td *matCellDef="let users">{{ users.displayName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="points">
+    <th *matHeaderCellDef>Points</th>
+    <td *matCellDef="let users">{{ users.points }}</td>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>
