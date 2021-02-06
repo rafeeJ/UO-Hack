@@ -33,6 +33,10 @@ export class FireLayerService {
   deleteChallenge(uid: string){
     return this.firestore.doc<Challenge>('challenges/' + uid).delete();
   }
+
+  getAllChallenges(){
+    return this.challengeCollection.snapshotChanges();
+  }
     
   createChallenge(challenge: Challenge) { 
     return new Promise<any>((resolve, reject)=> {
