@@ -1,6 +1,6 @@
 <div id="container">
     <mat-card id="title-card" style="margin-bottom: 1rem;">
-        <mat-card-title>Take Photo</mat-card-title>
+        <mat-card-title>Take a Photo</mat-card-title>
     </mat-card>
     
     <div *ngIf="showWebcam; then thenBlock else elseBlock" style="text-align: center;"></div>
@@ -21,7 +21,7 @@
         <br />
         <div style="display: flex; justify-content: space-around;">
             <button mat-raised-button (click)="toggleWebcam()">Try Again</button>
-            <button mat-raised-button (click)="emitPhoto()">Use This Photo</button>
+            <button mat-raised-button color="primary" (click)="emitPhoto()">Use This Photo</button>
         </div>
     </ng-template>
 </div>
