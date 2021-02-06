@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@agm/core@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@agm/core/-/core-3.0.0-beta.0.tgz#a9cfbe10a435142076a74687856b1adcccdcbac1"
+  integrity sha512-KNmKbe89Nen7s7+mX63RgX88jBfajUZCFqkHIQ8Fd+Lf/ko/IY6yw4kPh0iYGxgPVPjpsHJ06GZ5m3ZxpEVX9A==
+  dependencies:
+    tslib "^2.0.0"
+
 "@angular-devkit/architect@0.1101.4":
   version "0.1101.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.1101.4.tgz#1bf07a170f5a2808572344f3c8cbaaff6f9a65a6"
@@ -134,6 +141,15 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/cdk@^11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-11.1.2.tgz#89708a97be340bbfb7d64c84dbc7bb100f77d7ff"
+  integrity sha512-RnKvMWAIcWbWoUdBfAoOs4pQl6t5O+1OuPlBNK5aL2FYqoLv5U0fP88Rf7OhjPlD0ASsPGLG45t+dA5sUVZ46Q==
+  dependencies:
+    tslib "^2.0.0"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
 "@angular/cli@~11.1.4":
   version "11.1.4"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-11.1.4.tgz#46222917988723dbac5e4a9f864f73db5abb4ebb"
@@ -224,6 +240,13 @@
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-11.1.2.tgz#bb45bfb8f97f90e41473afc893097048bc38fd55"
   integrity sha512-zdOWgRgX8P1ULAzlv1fEjL/LZDdlJAD/0IfuFm0TiA4YyYopla+n6PC/9R6AfFWlZhvWEIzSNdk8s23UYEh3HQ==
+  dependencies:
+    tslib "^2.0.0"
+
+"@angular/material@^11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-11.1.2.tgz#6b466c95b65921e95d26bce34216439fc9b7881e"
+  integrity sha512-Fyjk6LUrJ+mJmRMrnM2L4Q9pijuhLa8q1G50mUYa81OJPWnhMRlzoM2dDHpS/ibIARpBc3QA8PmF3hUgyLxgMg==
   dependencies:
     tslib "^2.0.0"
 
@@ -1362,6 +1385,11 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.7.0"
 
+"@lukeed/csprng@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.0.0.tgz#733a122382749d27e2e46ec38f8c71c9d53a9636"
+  integrity sha512-ruuGHsnabmObBdeMg3vKdGRmh06Oog3eFpf/Tk6X0kDSJDpJTDCj2dqdp1+0VjzIUgHlFF9GBm7uFqfYhhdX9g==
+
 "@ngtools/webpack@11.1.4":
   version "11.1.4"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-11.1.4.tgz#8c7a9f6d9ade5610e3baf7299c50250cac02ca2a"
@@ -1542,6 +1570,11 @@
   dependencies:
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/googlemaps@3.39.12":
+  version "3.39.12"
+  resolved "https://registry.yarnpkg.com/@types/googlemaps/-/googlemaps-3.39.12.tgz#2546b5256a6555f929e130866ee2ee72931062fc"
+  integrity sha512-z1RMvlQfmsLbg5kc0dGjSHK7DL64mOCbbtqp/Le2M3ov7xPB1d+stia38hqmOXw5dPO1dL/5fscn73d0uomkbw==
 
 "@types/jasmine@~3.6.0":
   version "3.6.3"
@@ -6333,6 +6366,13 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
+ngx-webcam@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/ngx-webcam/-/ngx-webcam-0.3.2.tgz#5cbfecea0e0ed025b8e2bbd4b3ce09db3038c0b4"
+  integrity sha512-7imKrqc8b/CtLZ9g79fenCXcEwUxsi/4mdTnoSdwdbVHtU1pUmebxUNFPBEdEitiD09awGkcv2ZcgtqmJvIi8A==
+  dependencies:
+    tslib "^2.0.0"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -6832,6 +6872,11 @@ parse5-sax-parser@^6.0.1:
   integrity sha512-kXX+5S81lgESA0LsDuGjAlBybImAChYRMT+/uKCEXFBFOeEhS52qUCydGhU3qLRD8D9DVjaUo821WK7DM4iCeg==
   dependencies:
     parse5 "^6.0.1"
+
+parse5@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.1.tgz#f68e4e5ba1852ac2cadc00f4555fff6c2abb6178"
+  integrity sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==
 
 parse5@^6.0.1:
   version "6.0.1"
@@ -9014,6 +9059,13 @@ ua-parser-js@0.7.22:
   version "0.7.22"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.22.tgz#960df60a5f911ea8f1c818f3747b99c6e177eae3"
   integrity sha512-YUxzMjJ5T71w6a8WWVcMGM6YWOTX27rCoIQgLXiWaxqXSx9D7DNjiGWn1aJIRSQ5qr0xuhra77bSIh6voR/46Q==
+
+uid@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/uid/-/uid-2.0.0.tgz#1773bec106e96955f1658f20272e2ccea414e8bc"
+  integrity sha512-hFw+zKBA1szYdbZWj6FjTxZzJnKNf+wTDcsxlJaXS64MCy9LQEmJUVieGYHCKek/WRyFIcs0cEXtGIQmfvHe2A==
+  dependencies:
+    "@lukeed/csprng" "^1.0.0"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

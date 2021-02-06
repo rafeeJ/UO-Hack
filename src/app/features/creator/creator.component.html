@@ -1,1 +1,43 @@
-<p>creator works!</p>
+<div *ngIf="!createChallengeView; then thenBlock else elseBlock" style="text-align: center;"></div>
+
+<ng-template #thenBlock>
+<div id="challenge-list">
+    <mat-card id="title-card">
+        <mat-card-title>Your Challenges</mat-card-title>
+        <button mat-raised-button color="accent" (click)="createChallengeView = true">Create Challenge!</button>
+    </mat-card> 
+    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge'></app-challenge-card>
+</div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div id="creator-view" style="text-align: center;">
+    <div [ngSwitch]="createStep">
+        <!-- Take photo -->
+        <app-camera    *ngSwitchCase=1    (cameraEvent)="receiveCameraEvent($event)"></app-camera>
+        <!-- Enter Location -->
+        <div           *ngSwitchCase=2>
+            <div style="background-color: rgba(0, 0, 0, 0.38);">
+                <agm-map
+                [latitude]="lat"
+                [longitude]="lng"
+                [zoom]="zoom"
+                [disableDefaultUI]="false"
+                >
+                <!-- Users Location -->
+                <agm-marker *ngIf="userLocation" [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                    <agm-info-window>
+                    <strong>Your Location!</strong>
+                    </agm-info-window>
+                </agm-marker>
+                </agm-map>
+            </div>
+            <!-- Create the challenge -->
+            <button style="float: right; margin-right: 69px;" mat-raised-button (click)="submitChallenge()">Submit Challenge</button>
+        </div>
+    </div>
+<!-- Cancel at any point -->
+<button mat-raised-button color="warn" (click)="cancelCreateChallenge()">Cancel</button>
+</div>
+</ng-template>
+       
