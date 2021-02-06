@@ -117,8 +117,8 @@ export class CreatorComponent implements OnInit {
   }
 
   receiveDeleteChallengeEvent($event: Challenge) {
-    // Todo: Need challenge id.
-    //this.fireLayerService.deleteChallenge()
+    this.fireLayerService.deleteChallenge($event.uid);
+    this.updateChallenges();
   }
 
   markerDragEnd($event: google.maps.MouseEvent) {
@@ -128,7 +128,7 @@ export class CreatorComponent implements OnInit {
 
   createChallenge() {
     // Build a Challenge object from user data.
-    var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
+    var challenge: Challenge = new Challenge(uid(), this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
     // Add the new challenge to Firestore.
     this.fireLayerService.createChallenge(challenge);
     // Reset the create challenge fields.
