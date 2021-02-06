@@ -18,20 +18,7 @@ import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service
 export class CreatorComponent implements OnInit {
 
   // dummy challenges.
-  challenges = [
-    {
-      creatorUID: "papGVlnShK0Wt8AvI5Lr",
-      location: [53.374419438651294, -2.1886388694012915],
-      photoURL: "https://firebasestorage.googleapis.com/v0/b/uo-hack.appspot.com/o/EDNRiswXUAAl_t6.jpg?alt=media&token=af9f63d7-e1c3-44f1-b83d-a74b89362fe0",
-      submissions: ["submissions/Z9zSlMAB6yyfSryM2Hu8"]
-    },
-    {
-      creatorUID: "papGVlnShK0Wt8AvI5Lr",
-      location: [14.174213438675830, -1.182847469407762],
-      photoURL: "https://firebasestorage.googleapis.com/v0/b/uo-hack.appspot.com/o/EDNRiswXUAAl_t6.jpg?alt=media&token=af9f63d7-e1c3-44f1-b83d-a74b89362fe0",
-      submissions: []
-    }
-  ]
+  challenges: Challenge[] = [];
 
   // true: create challenge view, false: your challenges view.
   createChallengeView = false;
@@ -60,8 +47,17 @@ export class CreatorComponent implements OnInit {
     private authService: AuthService,
     private storage: AngularFireStorage
   ) {
-    this.authService.user$.subscribe(user_input => {this.user = user_input});
-  }
+    this.authService.user$.subscribe(user_input => {
+      // Set the current user.
+      this.user = user_input;
+      // Set the current user's challenges.
+      this.fireLayerService.getCreatedChallenges(this.user.uid).subscribe(challengeQueryResult => {
+        var newChallenges: Challenge[] = [];
+        challengeQueryResult.docs.forEach(challengeDocument => newChallenges.push(challengeDocument.data()))
+        this.challenges = newChallenges;
+      });
+    });
+   }
 
   ngOnInit(): void {
     this.mapsAPILoader.load().then(() => {

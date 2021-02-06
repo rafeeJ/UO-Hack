@@ -48,7 +48,7 @@ export class FireLayerService {
   }
 
   getCreatedChallenges(uid: string){
-    return this.firestore.collection('challenges', ref => ref.where('creatorUID', '==', uid)).get();
+    return this.firestore.collection<Challenge>('challenges', ref => ref.where('creatorUID', '==', uid)).get();
   }
 
   // USERS
