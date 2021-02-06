@@ -47,23 +47,27 @@ export class CreatorComponent implements OnInit {
     private fireLayerService: FireLayerService,
     private authService: AuthService,
     private storage: AngularFireStorage
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.authService.user$.subscribe(user_input => {
       // Set the current user.
       this.user = user_input;
       // Set the current user's challenges.
-      this.fireLayerService.getCreatedChallenges(this.user.uid).subscribe(challengeQueryResult => {
-        var newChallenges: Challenge[] = [];
-        challengeQueryResult.docs.forEach(challengeDocument => newChallenges.push(challengeDocument.data()))
-        this.challenges = newChallenges;
-      });
+      this.updateChallenges();
     });
-   }
-
-  ngOnInit(): void {
+    // Load map.
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder();
+    });
+  }
+
+  private updateChallenges() {
+    this.fireLayerService.getCreatedChallenges(this.user.uid).subscribe(challengeQueryResult => {
+      var newChallenges: Challenge[] = [];
+      challengeQueryResult.docs.forEach(challengeDocument => newChallenges.push(challengeDocument.data()))
+      this.challenges = newChallenges;
     });
   }
 
@@ -124,16 +128,11 @@ export class CreatorComponent implements OnInit {
     this.fireLayerService.createChallenge(challenge);
     // Reset the create challenge fields.
     this.cancelCreateChallenge();
+    // Add the new challenge.
+    this.updateChallenges();
     // Go back to you challenges view.
     this.createChallengeView = false;
   }
-
-  // submitChallenge() {
-  //   var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
-  //   this.fireLayerService.createChallenge(challenge);
-  //   // Reset the create challenge fields and go back to viewing all challenges.
-  //   this.cancelCreateChallenge();
-  // }
 
 }
 
