@@ -14,20 +14,21 @@ export class ExplorerComponent {
   viewPhoto = false;
   takePhoto = false;
   challenge: any;
+  prevLocation: any[];
 
   title = 'Phallenges!';
 
-  onNotifyViewMap() {
+  onNotifyViewMap(prevLocation: []) {
     this.viewMap = true;
     this.viewPhoto = false;
     this.takePhoto = false;
+    this.prevLocation = prevLocation;
   }
 
   onNotifyViewPhoto(challenge: any) {
     this.viewMap = false;
     this.viewPhoto = true;
     this.takePhoto = false;
-    console.log(challenge);
     this.challenge = challenge;
   }
 

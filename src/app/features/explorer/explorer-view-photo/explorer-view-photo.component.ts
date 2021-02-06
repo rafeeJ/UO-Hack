@@ -20,4 +20,9 @@ export class ExplorerViewPhotoComponent implements OnInit {
   submitClicked() {
     this.notifyTakePhoto.emit();
   }
+
+  back() {
+    console.log(this.challenge.data().location);
+    this.notifyViewMap.emit(this.challenge.data().location);
+  }
 }

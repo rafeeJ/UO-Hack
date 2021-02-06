@@ -1,5 +1,6 @@
 <app-explorer-map
   *ngIf="viewMap"
+  [prevLocation]="prevLocation"
   (notifyViewPhoto)="onNotifyViewPhoto($event)"
   (notifyTakePhoto)="onNotifyTakePhoto()"
 >
@@ -9,14 +10,14 @@
 <app-explorer-view-photo
   *ngIf="viewPhoto"
   [challenge]="challenge"
-  (notifyViewMap)="onNotifyViewMap()"
+  (notifyViewMap)="onNotifyViewMap($event)"
   (notifyTakePhoto)="onNotifyTakePhoto()"
 ></app-explorer-view-photo>
 
 <app-explorer-take-photo
   *ngIf="takePhoto"
   [challenge]="challenge"
-  (notifyViewMap)="onNotifyViewMap()"
+  (notifyViewMap)="onNotifyViewMap($event)"
   (notifyViewPhoto)="onNotifyViewPhoto($event)"
 ></app-explorer-take-photo>
 

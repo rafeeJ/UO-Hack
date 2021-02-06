@@ -8,10 +8,10 @@
   [latitude]="lat"
   [longitude]="lng"
   [zoom]="zoom"
-  [disableDefaultUI]="false"
+  [disableDefaultUI]="true"
 >
   <!-- Users Location -->
-  <agm-marker *ngIf="userLocation" [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="userLat" [longitude]="userLng">
     <agm-info-window>
       <strong>Your Location!</strong>
     </agm-info-window>
@@ -19,8 +19,8 @@
 
   <agm-circle
     *ngFor="let c of challenges; let i = index"
-    [latitude]="c.data().location.latitude || c.data().location[0]"
-    [longitude]="c.data().location.longitude || c.data().location[1]"
+    [latitude]="c.data().location.latitude"
+    [longitude]="c.data().location.longitude"
     [radius]="200"
     [fillColor]="'red'"
   >
