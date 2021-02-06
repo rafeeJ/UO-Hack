@@ -3,7 +3,7 @@
     <div *ngIf="!createChallengeView">
         <h1>Your Challenges</h1>
         <ul *ngFor="let challenge of challenges">
-            <img src="{{ challenge.photoURL }}" width=500 height=500>
+            <img src="{{ challenge.photoURL }}" width=500>
         </ul>
         <button (click)="createChallengeView = true">Create Challenge!</button>
     </div>
@@ -11,6 +11,7 @@
     <!-- Create Challenge -->
     <div *ngIf="createChallengeView">
         <!-- Take photo -->
+        <p>url: {{ photoURL }}</p>
         <app-camera *ngIf="createStep == 1" (cameraEvent)="receiveCameraEvent($event)"></app-camera>
         <!-- Enter Location -->
         <div *ngIf="createStep == 2">

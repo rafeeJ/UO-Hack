@@ -24,10 +24,11 @@
     "@angular/platform-browser-dynamic": "~11.1.2",
     "@angular/router": "~11.1.2",
     "firebase": "^8.2.6",
+    "ngx-webcam": "^0.3.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
-    "ngx-webcam": "^0.3.2"
+    "uid": "^2.0.0",
+    "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1101.4",

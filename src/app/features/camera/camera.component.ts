@@ -10,8 +10,16 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 export class CameraComponent implements OnInit {
   @Output() cameraEvent = new EventEmitter<string>();
 
+<<<<<<< HEAD
   // Latest snapshot
   webcamImage: WebcamImage = null;
+=======
+    constructor() { }
+
+    @Output() cameraEvent = new EventEmitter<any>();
+
+    // downloadURL: Observable<any>;
+>>>>>>> b47eb3a13ab5a299cf89c2a103650ad041de9bf9
 
   // Switch between live webcam and image preview.
   showWebcam = true;
@@ -27,6 +35,7 @@ export class CameraComponent implements OnInit {
   // Webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
 
+<<<<<<< HEAD
   ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs().then(
       (mediaDevices: MediaDeviceInfo[]) => {
@@ -34,6 +43,14 @@ export class CameraComponent implements OnInit {
       }
     );
   }
+=======
+    emitPhoto() {
+      // Emit the image.
+      this.cameraEvent.emit(this.webcamImage);
+      // Reset camera.
+      this.toggleWebcam();
+    }
+>>>>>>> b47eb3a13ab5a299cf89c2a103650ad041de9bf9
 
   capture(): void {
     // Take picture.

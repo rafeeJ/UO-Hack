@@ -2,7 +2,7 @@
     <h1>Take Photo</h1>
     <!-- Take Photo -->
     <div *ngIf="showWebcam">
-        <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)"></webcam>
+        <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)" [captureImageData]="true"></webcam>
         <br/>
         <button (click)="capture()">Capture</button>
     </div>
@@ -11,6 +11,6 @@
         <img [src]="webcamImage.imageAsDataUrl"/>
         <br/>
         <button (click)="toggleWebcam()">Try Again</button>
-        <button (click)="emitCameraEvent()">Use This Photo</button>
+        <button (click)="emitPhoto()">Use This Photo</button>
     </div>
 </div>
