@@ -116,6 +116,11 @@ export class CreatorComponent implements OnInit {
     this.createStep = 2;
   }
 
+  receiveDeleteChallengeEvent($event: Challenge) {
+    // Todo: Need challenge id.
+    //this.fireLayerService.deleteChallenge()
+  }
+
   markerDragEnd($event: google.maps.MouseEvent) {
     this.lat = $event.latLng.lat();
     this.lng = $event.latLng.lng();

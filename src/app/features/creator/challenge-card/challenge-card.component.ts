@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Challenge } from 'src/app/services/fire-layer/challenge';
 
 @Component({
@@ -8,12 +8,17 @@ import { Challenge } from 'src/app/services/fire-layer/challenge';
 })
 export class ChallengeCardComponent implements OnInit {
 
+  @Output() deleteChallengeEvent = new EventEmitter<any>();
+
+  @Input() challenge: Challenge;
+
   constructor() { }
 
-  //@Input() challenge: Challenge;
-  @Input() challenge: any;
-
   ngOnInit(): void {
+  }
+
+  deleteChallenge() {
+    this.deleteChallengeEvent.emit(this.challenge);
   }
 
 }

@@ -6,7 +6,7 @@
         <mat-card-title>Your Challenges</mat-card-title>
         <button mat-raised-button color="accent" (click)="createChallengeView = true">Create Challenge!</button>
     </mat-card> 
-    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge'></app-challenge-card>
+    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge' (deleteChallengeEvent)="receiveDeleteChallengeEvent($event)"></app-challenge-card>
 </div>
 </ng-template>
 
