@@ -42,20 +42,8 @@ export class FireLayerService {
     })
   }
 
-  getActiveChallenge() {
-    var user: User;
-    
-    this.auth.user$.subscribe(user_input => {
-      if(user_input != null) {
-        user = user_input;
-        return user.activeChallenge
-            .withConverter<Challenge>(challengeConverter)
-            .get()
-      }
-      else {
-        return null;
-      }
-    })
+  getCreatedChallenges(uid: string){
+    return this.firestore.collection('challenges', ref => ref.where('creatorUID', '==', uid)).get();
   }
 
   // USERS
