@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentData } from '@angular/fire/firestore';
 import { Challenge, challengeConverter } from 'src/app/services/fire-layer/challenge';
 import { User } from './user';
 import { AuthService } from '../auth-service/auth.service';
@@ -33,29 +33,21 @@ export class FireLayerService {
   deleteChallenge(uid: string){
     return this.firestore.doc<Challenge>('challenges/' + uid).delete();
   }
+
+  getAllChallenges(){
+    return this.challengeCollection.snapshotChanges();
+  }
     
-  createChallenge(challenge: Challenge) { 
+ createChallenge(challenge: Challenge) { 
     return new Promise<any>((resolve, reject)=> {
       this.challengeCollection
-      .add(challenge)
+      .add(Object.assign({}, challenge))
       .then(res => {}, err => reject(err));
     })
   }
 
-  getActiveChallenge() {
-    var user: User;
-    
-    this.auth.user$.subscribe(user_input => {
-      if(user_input != null) {
-        user = user_input;
-        return user.activeChallenge
-            .withConverter<Challenge>(challengeConverter)
-            .get()
-      }
-      else {
-        return null;
-      }
-    })
+  getCreatedChallenges(uid: string){
+    return this.firestore.collection('challenges', ref => ref.where('creatorUID', '==', uid)).get();
   }
 
   // USERS

@@ -15,11 +15,31 @@
         <app-camera *ngIf="createStep == 1" (cameraEvent)="receiveCameraEvent($event)"></app-camera>
         <!-- Enter Location -->
         <div *ngIf="createStep == 2">
-            <p>Enter location...</p>
-            <!-- Create the challenge -->
-            <button (click)="createChallenge()">Create Challenge</button>
+            <!-- Choose Challenge Location -->
+            <div *ngIf="chooseLocationView">
+                <!-- Map Stuff -->
+                <div>
+                    <agm-map
+                    [latitude]="lat"
+                    [longitude]="lng"
+                    [zoom]="zoom"
+                    [disableDefaultUI]="false"
+                    >
+                    <!-- Users Location -->
+                    <agm-marker *ngIf="userLocation" [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                        <agm-info-window>
+                        <strong>Your Location!</strong>
+                        </agm-info-window>
+                    </agm-marker>
+                    </agm-map>
+                </div>
+
+        <!-- Confirm Location-->
+        <button (click)="submitChallenge()">Submit Challenge</button>
         </div>
         <!-- Cancel at any point -->
         <button (click)="cancelCreateChallenge()">Cancel</button>
+    </div>
+
     </div>
 </div>

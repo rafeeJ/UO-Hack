@@ -1,9 +1,14 @@
+import { MapsAPILoader } from '@agm/core';
 import { Component, OnInit } from '@angular/core';
 import { WebcamImage } from 'ngx-webcam';
 import { Observable } from 'rxjs';
 import { AngularFireStorage  } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { uid } from 'uid';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { Challenge } from 'src/app/services/fire-layer/challenge';
+import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service';
 
 @Component({
   selector: 'app-creator',
@@ -14,6 +19,7 @@ export class CreatorComponent implements OnInit {
 
   // true: create challenge view, false: your challenges view.
   createChallengeView = false;
+  chooseLocationView = false;
 
   // 1: take photo, 2: set location
   createStep = 1;
@@ -37,9 +43,43 @@ export class CreatorComponent implements OnInit {
     }
   ]
 
-  constructor(private storage: AngularFireStorage) { }
+  user: User;
+
+  // google maps zoom level
+  zoom: number = 12;
+
+  // initial center position for the map
+  lat: number = 53.94683859574885;
+  lng: number = -1.0308574426583503;
+
+  geoCoder: google.maps.Geocoder | undefined;
+  userLocation = false;
+
+  private setCurrentLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        this.zoom = 12;
+        this.userLocation = true;
+      });
+    }
+  }
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private fireLayerService: FireLayerService,
+    private authService: AuthService,
+    private storage: AngularFireStorage
+  ) {
+    this.authService.user$.subscribe(user_input => {this.user = user_input});
+  }
 
   ngOnInit(): void {
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder();
+    });
   }
 
   cancelCreateChallenge() {
@@ -76,14 +116,30 @@ export class CreatorComponent implements OnInit {
 
     // Move to location step.
     this.createStep = 2;
+    // Enable choose location view
+    this.chooseLocationView = true;
+  }
+
+  markerDragEnd($event: google.maps.MouseEvent) {
+    this.lat = $event.latLng.lat();
+    this.lng = $event.latLng.lng();
   }
 
   createChallenge() {
-    // Todo: Add challenge to firestore.
     // Reset the create challenge fields.
     this.cancelCreateChallenge();
     // Go back to you challenges view.
     this.createChallengeView = false;
   }
 
+  submitChallenge() {
+    var challenge: Challenge = new Challenge('testUID', this.user.uid, [this.lng, this.lat], this.photoURL, []);
+    this.fireLayerService.createChallenge(challenge);
+    this.chooseLocationView = false;
+    this.createChallengeView = false;
+    this.createStep = 1;
+  }
+
 }
+
+
