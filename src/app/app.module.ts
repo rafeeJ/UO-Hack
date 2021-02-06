@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { WebcamModule } from 'ngx-webcam';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExplorerComponent } from './features/explorer/explorer.component';
 import { CreatorComponent } from './features/creator/creator.component';
 import { LandingComponent } from './features/landing/landing.component';
+import { CameraComponent } from './features/camera/camera.component';
 
 // Firebase Stuff here
 import { AngularFireModule } from '@angular/fire';
@@ -26,7 +29,8 @@ const firebaseConfig = {
     AppComponent,
     ExplorerComponent,
     CreatorComponent,
-    LandingComponent
+    LandingComponent,
+    CameraComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ const firebaseConfig = {
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    AppRoutingModule
+    AppRoutingModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
