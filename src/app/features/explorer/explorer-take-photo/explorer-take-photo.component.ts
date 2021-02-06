@@ -92,6 +92,9 @@ export class ExplorerTakePhotoComponent implements OnInit {
       );
       console.log(challenge);
       this.fireLayerService.updateChallenge(challenge);
+
+      alert('Your image has been submitted!');
+      this.notifyViewMap.emit();
     });
   }
 }
