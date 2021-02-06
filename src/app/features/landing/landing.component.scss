@@ -1,0 +1,10 @@
+@media only screen and (max-width: 600px) {
+    #desktop {
+        display: none;
+    }
+
+    #mobile {
+        background-color: lightblue;
+        height: calc( 100vh - 2 * 56px );
+    }
+  }
