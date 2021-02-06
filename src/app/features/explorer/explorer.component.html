@@ -15,6 +15,7 @@
 
 <app-explorer-take-photo
   *ngIf="takePhoto"
+  [challenge]="challenge"
   (notifyViewMap)="onNotifyViewMap()"
   (notifyViewPhoto)="onNotifyViewPhoto($event)"
 ></app-explorer-take-photo>

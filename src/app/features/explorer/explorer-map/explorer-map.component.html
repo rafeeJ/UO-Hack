@@ -19,8 +19,8 @@
 
   <agm-circle
     *ngFor="let c of challenges; let i = index"
-    [latitude]="c.data().location.latitude"
-    [longitude]="c.data().location.longitude"
+    [latitude]="c.data().location.latitude || c.data().location[0]"
+    [longitude]="c.data().location.longitude || c.data().location[1]"
     [radius]="200"
     [fillColor]="'red'"
   >

@@ -33,9 +33,7 @@ export class ExplorerMapComponent {
         if (data) {
           data.map((test: { payload: { doc: { id: any } } }) => {
             if (
-              !this.challenges.some(
-                (e: any) => e.doc.id === test.payload.doc.id
-              )
+              !this.challenges.some((e: any) => e.id === test.payload.doc.id)
             ) {
               console.log(test.payload.doc);
               this.challenges.push(test.payload.doc);

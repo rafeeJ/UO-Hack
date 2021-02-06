@@ -3,6 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   DocumentData,
+  DocumentReference,
 } from '@angular/fire/firestore';
 import {
   Challenge,
@@ -35,7 +36,7 @@ export class FireLayerService {
   updateChallenge(challenge: Challenge) {
     return this.firestore
       .doc<Challenge>('challenges/' + challenge.uid)
-      .set(challenge);
+      .set(Object.assign({}, challenge));
   }
 
   deleteChallenge(uid: string) {
@@ -79,8 +80,10 @@ export class FireLayerService {
 
   createSubmission(submission: Submission) {
     return new Promise<any>((resolve, reject) => {
-      this.submissionCollection.add(submission).then(
-        (res) => {},
+      this.submissionCollection.add(Object.assign({}, submission)).then(
+        (res) => {
+          resolve(res.id);
+        },
         (err) => reject(err)
       );
     });
@@ -94,5 +97,9 @@ export class FireLayerService {
 
   deleteSubmission(uid: string) {
     return this.firestore.doc<Submission>('submissions/' + uid).delete();
+  }
+
+  getSubmissionReference(uid: string) {
+    return this.firestore.doc<Submission>('submissions' + uid);
   }
 }
