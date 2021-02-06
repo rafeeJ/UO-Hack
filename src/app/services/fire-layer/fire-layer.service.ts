@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  DocumentData,
 } from '@angular/fire/firestore';
 import {
   Challenge,
@@ -47,7 +48,7 @@ export class FireLayerService {
 
   createChallenge(challenge: Challenge) {
     return new Promise<any>((resolve, reject) => {
-      this.challengeCollection.add(challenge).then(
+      this.challengeCollection.add(Object.assign({}, challenge)).then(
         (res) => {},
         (err) => reject(err)
       );

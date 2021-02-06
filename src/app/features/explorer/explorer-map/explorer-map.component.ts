@@ -27,19 +27,23 @@ export class ExplorerMapComponent {
       this.userLocation = true;
     });
 
-    this.fireService.getAllChallenges().subscribe((data) => {
-      if (data) {
-        data.map((test) => {
-          if (
-            !this.challenges.some((e: any) => e.doc.id === test.payload.doc.id)
-          ) {
-            console.log(test.payload.doc);
-            this.challenges.push(test.payload.doc);
-          }
-        });
-        console.log(this.challenges);
-      }
-    });
+    this.fireService
+      .getAllChallenges()
+      .subscribe((data: { payload: { doc: { id: any } } }[]) => {
+        if (data) {
+          data.map((test: { payload: { doc: { id: any } } }) => {
+            if (
+              !this.challenges.some(
+                (e: any) => e.doc.id === test.payload.doc.id
+              )
+            ) {
+              console.log(test.payload.doc);
+              this.challenges.push(test.payload.doc);
+            }
+          });
+          console.log(this.challenges);
+        }
+      });
   }
 
   title = 'Phallenges!';
