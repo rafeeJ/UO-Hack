@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Challenge } from 'src/app/services/fire-layer/challenge';
 import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service';
+import { Coordinates } from 'src/app/services/fire-layer/coordinates';
 
 @Component({
   selector: 'app-creator',
@@ -17,43 +18,58 @@ import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service
 })
 export class CreatorComponent implements OnInit {
 
+  // dummy challenges.
+  challenges: Challenge[] = [];
+
   // true: create challenge view, false: your challenges view.
   createChallengeView = false;
-  chooseLocationView = false;
 
   // 1: take photo, 2: set location
   createStep = 1;
-  longitude:string = "";
-  latitude:string = "";
-  photoURL:string="";
-
-  // dummy challenges.
-  challenges = [
-    {
-      creatorUID: "papGVlnShK0Wt8AvI5Lr",
-      location: [53.374419438651294, -2.1886388694012915],
-      photoURL: "https://firebasestorage.googleapis.com/v0/b/uo-hack.appspot.com/o/EDNRiswXUAAl_t6.jpg?alt=media&token=af9f63d7-e1c3-44f1-b83d-a74b89362fe0",
-      submissions: ["submissions/Z9zSlMAB6yyfSryM2Hu8"]
-    },
-    {
-      creatorUID: "papGVlnShK0Wt8AvI5Lr",
-      location: [14.174213438675830, -1.182847469407762],
-      photoURL: "https://firebasestorage.googleapis.com/v0/b/uo-hack.appspot.com/o/EDNRiswXUAAl_t6.jpg?alt=media&token=af9f63d7-e1c3-44f1-b83d-a74b89362fe0",
-      submissions: []
-    }
-  ]
 
   user: User;
 
-  // google maps zoom level
+  // Google Maps zoom level.
   zoom: number = 12;
 
-  // initial center position for the map
+  // URL of the challenge photo.
+  photoURL: string = "";
+
+  // Initial center position for the map, incase cannot get current location.
   lat: number = 53.94683859574885;
   lng: number = -1.0308574426583503;
 
   geoCoder: google.maps.Geocoder | undefined;
   userLocation = false;
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private fireLayerService: FireLayerService,
+    private authService: AuthService,
+    private storage: AngularFireStorage
+  ) { }
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user_input => {
+      // Set the current user.
+      this.user = user_input;
+      // Set the current user's challenges.
+      this.updateChallenges();
+    });
+    // Load map.
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder();
+    });
+  }
+
+  private updateChallenges() {
+    this.fireLayerService.getCreatedChallenges(this.user.uid).subscribe(challengeQueryResult => {
+      var newChallenges: Challenge[] = [];
+      challengeQueryResult.docs.forEach(challengeDocument => newChallenges.push(challengeDocument.data()))
+      this.challenges = newChallenges;
+    });
+  }
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -66,58 +82,43 @@ export class CreatorComponent implements OnInit {
     }
   }
 
-  constructor(
-    private mapsAPILoader: MapsAPILoader,
-    private fireLayerService: FireLayerService,
-    private authService: AuthService,
-    private storage: AngularFireStorage
-  ) {
-    this.authService.user$.subscribe(user_input => {this.user = user_input});
-  }
-
-  ngOnInit(): void {
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
-    });
-  }
-
   cancelCreateChallenge() {
-    // Reset location and photoURL.
-    this.longitude = "";
-    this.latitude = "";
+    // Reset location.
+    this.lat = 53.94683859574885;
+    this.lng = -1.0308574426583503;
+    this.setCurrentLocation(); // Get current location if possible.
+    // Reset photoURL.
     this.photoURL = null;
-    // Reset createStep to 1 (take photo).
+    // Put createStep back to 1 i.e. taking photo.
     this.createStep = 1;
-    // Go back to viewing your challenges.
+    // hide the create challenge components.
     this.createChallengeView = false;
   }
 
-  async receiveCameraEvent($event:WebcamImage) {
-    // Convert WebcamImage to Blob.
+  async receiveCameraEvent($event: WebcamImage) {
+    // Convert WebcamImage ImageData to Blob.
     let canvas = document.createElement('canvas');
     canvas.width = $event.imageData.width;
     canvas.height = $event.imageData.height;
     let context = canvas.getContext('2d');
     context.putImageData($event.imageData, 0, 0); 
     let blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
-    
-    // Upload webcam image.
-    const filePath = uid() + '.jpeg';
+    // Upload webcam image to the Firebase storage bucket.
+    const filePath = uid() + '.jpeg'; // Generate a unique id for the filename.
     const fileRef = this.storage.ref(filePath);
-    // const task = this.storage.upload(filePath, $event.imageAsDataUrl);
     const task = fileRef.put(blob);
-   
     // Update the photoURL once it has been uploaded.
     task.snapshotChanges().pipe(
       finalize(() => fileRef.getDownloadURL().subscribe(downloadURL => this.photoURL = downloadURL) )
     )
     .subscribe()
-
-    // Move to location step.
+    // Picture has been selected so move to the location choosing step.
     this.createStep = 2;
-    // Enable choose location view
-    this.chooseLocationView = true;
+  }
+
+  receiveDeleteChallengeEvent($event: Challenge) {
+    // Todo: Need challenge id.
+    //this.fireLayerService.deleteChallenge()
   }
 
   markerDragEnd($event: google.maps.MouseEvent) {
@@ -126,18 +127,16 @@ export class CreatorComponent implements OnInit {
   }
 
   createChallenge() {
+    // Build a Challenge object from user data.
+    var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
+    // Add the new challenge to Firestore.
+    this.fireLayerService.createChallenge(challenge);
     // Reset the create challenge fields.
     this.cancelCreateChallenge();
+    // Add the new challenge.
+    this.updateChallenges();
     // Go back to you challenges view.
     this.createChallengeView = false;
-  }
-
-  submitChallenge() {
-    var challenge: Challenge = new Challenge('testUID', this.user.uid, [this.lng, this.lat], this.photoURL, []);
-    this.fireLayerService.createChallenge(challenge);
-    this.chooseLocationView = false;
-    this.createChallengeView = false;
-    this.createStep = 1;
   }
 
 }

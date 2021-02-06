@@ -48,6 +48,8 @@ export class FireLayerService {
   }
 
   createChallenge(challenge: Challenge) {
+    delete challenge.uid;
+    challenge.location = Object.assign({}, challenge.location);
     return new Promise<any>((resolve, reject) => {
       this.challengeCollection.add(Object.assign({}, challenge)).then(
         (res) => {},
@@ -58,7 +60,9 @@ export class FireLayerService {
 
   getCreatedChallenges(uid: string) {
     return this.firestore
-      .collection('challenges', (ref) => ref.where('creatorUID', '==', uid))
+      .collection<Challenge>('challenges', (ref) =>
+        ref.where('creatorUID', '==', uid)
+      )
       .get();
   }
 

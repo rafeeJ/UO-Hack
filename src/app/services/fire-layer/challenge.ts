@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { DocumentData, DocumentReference } from '@angular/fire/firestore';
 
 export class Challenge {
@@ -8,6 +9,15 @@ export class Challenge {
     public photoURL: string,
     public submissions: Array<string>
   ) {}
+=======
+import { DocumentData, DocumentReference } from "@angular/fire/firestore";
+import { Coordinates } from "./coordinates";
+
+export class Challenge {
+    constructor(public uid: string, public creatorUID: string, public location: Coordinates , public photoURL: string, 
+        public submissions: Array<DocumentReference>){};
+
+>>>>>>> d138c50ce4dfa7a0649cf617fb9fb3fdf29ee20a
 }
 
 export const challengeConverter = {
