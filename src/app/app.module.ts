@@ -7,11 +7,20 @@ import { ExplorerComponent } from './features/explorer/explorer.component';
 import { CreatorComponent } from './features/creator/creator.component';
 import { LandingComponent } from './features/landing/landing.component';
 
-// Firebase Stuff here
+// Firebase stuff here
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+//import { AngularFireAuthModule } from '@angular/fire/auth';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Material stuff here
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg",
@@ -32,9 +41,14 @@ const firebaseConfig = {
     BrowserModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule, // firestore
-    AngularFireAuthModule, // auth
+    //AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    AppRoutingModule
+    AppRoutingModule, 
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
