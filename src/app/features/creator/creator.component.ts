@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { WebcamImage } from 'ngx-webcam';
+import { Observable } from 'rxjs';
+import { AngularFireStorage  } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
+import { uid } from 'uid';
 
 @Component({
   selector: 'app-creator',
@@ -14,7 +19,7 @@ export class CreatorComponent implements OnInit {
   createStep = 1;
   longitude:string = "";
   latitude:string = "";
-  photoURL = "";
+  photoURL:string="";
 
   // dummy challenges.
   challenges = [
@@ -32,7 +37,7 @@ export class CreatorComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private storage: AngularFireStorage) { }
 
   ngOnInit(): void {
   }
@@ -48,9 +53,27 @@ export class CreatorComponent implements OnInit {
     this.createChallengeView = false;
   }
 
-  receiveCameraEvent($event:string) {
-    // Get photoURL and update here.
-    this.photoURL = $event;
+  async receiveCameraEvent($event:WebcamImage) {
+    // Convert WebcamImage to Blob.
+    let canvas = document.createElement('canvas');
+    canvas.width = $event.imageData.width;
+    canvas.height = $event.imageData.height;
+    let context = canvas.getContext('2d');
+    context.putImageData($event.imageData, 0, 0); 
+    let blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg'));
+    
+    // Upload webcam image.
+    const filePath = uid() + '.jpeg';
+    const fileRef = this.storage.ref(filePath);
+    // const task = this.storage.upload(filePath, $event.imageAsDataUrl);
+    const task = fileRef.put(blob);
+   
+    // Update the photoURL once it has been uploaded.
+    task.snapshotChanges().pipe(
+      finalize(() => fileRef.getDownloadURL().subscribe(downloadURL => this.photoURL = downloadURL) )
+    )
+    .subscribe()
+
     // Move to location step.
     this.createStep = 2;
   }

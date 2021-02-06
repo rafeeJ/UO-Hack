@@ -14,7 +14,7 @@ import { TopNavBarComponent } from './features/global/top-nav-bar/top-nav-bar.co
 // Firebase stuff here
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import {AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 //import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -60,7 +60,9 @@ const firebaseConfig = {
     MatCardModule,
     MatMenuModule
   ],
-  providers: [],
+  providers: [
+    { provide: BUCKET, useValue: 'uo-hack.appspot.com' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

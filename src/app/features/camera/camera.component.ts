@@ -9,7 +9,11 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 })
 export class CameraComponent implements OnInit {
 
-    @Output() cameraEvent = new EventEmitter<string>();
+    constructor() { }
+
+    @Output() cameraEvent = new EventEmitter<any>();
+
+    // downloadURL: Observable<any>;
 
     // Latest snapshot
     webcamImage: WebcamImage = null;
@@ -59,12 +63,9 @@ export class CameraComponent implements OnInit {
       return this.trigger.asObservable();
     }
 
-    emitCameraEvent() {
-      // Upload this.webcamImage to firestore.
-      // Get url.
-      var photoURL = "placeholder";
-      // Emit image.
-      this.cameraEvent.emit(photoURL);
+    emitPhoto() {
+      // Emit the image.
+      this.cameraEvent.emit(this.webcamImage);
       // Reset camera.
       this.toggleWebcam();
     }
