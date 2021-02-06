@@ -13,11 +13,27 @@ export class ExplorerComponent {
   viewMap = true;
   viewPhoto = false;
   takePhoto = false;
+  challenge: any;
 
   title = 'Phallenges!';
 
-  onNotifyViewMap(status: boolean) {
-    this.viewMap = status;
-    this.viewPhoto = !status;
+  onNotifyViewMap() {
+    this.viewMap = true;
+    this.viewPhoto = false;
+    this.takePhoto = false;
+  }
+
+  onNotifyViewPhoto(challenge: any) {
+    this.viewMap = false;
+    this.viewPhoto = true;
+    this.takePhoto = false;
+    console.log(challenge);
+    this.challenge = challenge;
+  }
+
+  onNotifyTakePhoto() {
+    this.viewMap = false;
+    this.viewPhoto = false;
+    this.takePhoto = true;
   }
 }

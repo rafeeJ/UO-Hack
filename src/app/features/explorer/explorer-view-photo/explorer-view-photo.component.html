@@ -1,1 +1,12 @@
-<p>explorer-view-photo works!</p>
+<div>
+  <img src="{{ challenge.data().photoURL }}" />
+  <p>Added 2 days ago by User</p>
+  <p>14 Correct / 20 Submissions</p>
+</div>
+
+<div>
+  <button mat-button (click)="submitClicked()">
+    <mat-icon>camera_alt</mat-icon>
+    Submit
+  </button>
+</div>

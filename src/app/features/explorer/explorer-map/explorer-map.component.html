@@ -1,3 +1,7 @@
+<div>
+  <h1>Pick a Challenge!</h1>
+</div>
+
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <agm-map
@@ -14,25 +18,25 @@
   </agm-marker>
 
   <agm-circle
-    *ngFor="let c of circles; let i = index"
-    [latitude]="c.lat"
-    [longitude]="c.lng"
+    *ngFor="let c of challenges; let i = index"
+    [latitude]="c.data().location.latitude"
+    [longitude]="c.data().location.longitude"
     [radius]="200"
     [fillColor]="'red'"
   >
     <agm-marker
-      (markerClick)="clickedMarker()"
-      [latitude]="c.lat"
-      [longitude]="c.lng"
+      (markerClick)="clickedMarker(c)"
+      [latitude]="c.data().location.latitude"
+      [longitude]="c.data().location.longitude"
     >
-      <agm-info-window>
+      <!-- <agm-info-window>
         <div>
           <strong>{{ c.label }}</strong>
         </div>
         <div>
-          <button (click)="clickedButton()">View</button>
+          <button (click)="clickedButton()">View Challenge</button>
         </div>
-      </agm-info-window>
+      </agm-info-window> -->
     </agm-marker>
   </agm-circle>
 </agm-map>

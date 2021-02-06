@@ -1,6 +1,8 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExplorerComponent } from '../explorer.component';
+import { FireLayerService } from '../../../services/fire-layer/fire-layer.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-explorer-map',
@@ -8,53 +10,15 @@ import { ExplorerComponent } from '../explorer.component';
   styleUrls: ['./explorer-map.component.scss'],
 })
 export class ExplorerMapComponent {
-  _status: boolean = true;
-  @Output() notifyViewMap = new EventEmitter<boolean>();
-  @Input('viewMap')
-  set status(status: boolean) {
-    this._status = status || true;
-    console.log(status);
-  }
-  get status(): boolean {
-    return this._status;
-  }
+  @Output() notifyViewPhoto = new EventEmitter<any>();
+  @Output() notifyTakePhoto = new EventEmitter<any>();
 
-  title = 'Phallenges!';
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private fireService: FireLayerService
+  ) {}
 
-  // google maps zoom level
-  zoom: number = 12;
-
-  circles = [
-    {
-      label: 'Challenge 1',
-      lat: 53.9568,
-      lng: -1.0308,
-    },
-    {
-      label: 'Challenge 2',
-      lat: 53.9578,
-      lng: -1.0218,
-    },
-    {
-      label: 'Challenge 3',
-      lat: 53.9448,
-      lng: -1.0518,
-    },
-    {
-      label: 'Challenge 4',
-      lat: 53.9328,
-      lng: -1.0278,
-    },
-  ];
-
-  // initial center position for the map
-  lat: number = 53.94683859574885;
-  lng: number = -1.0308574426583503;
-
-  geoCoder: google.maps.Geocoder | undefined;
-  userLocation = false;
-
-  constructor(private mapsAPILoader: MapsAPILoader) {}
+  challenges: any = [];
 
   ngOnInit() {
     this.mapsAPILoader.load().then(() => {
@@ -62,7 +26,33 @@ export class ExplorerMapComponent {
       this.geoCoder = new google.maps.Geocoder();
       this.userLocation = true;
     });
+
+    this.fireService.getAllChallenges().subscribe((data) => {
+      if (data) {
+        data.map((test) => {
+          if (
+            !this.challenges.some((e: any) => e.doc.id === test.payload.doc.id)
+          ) {
+            console.log(test.payload.doc);
+            this.challenges.push(test.payload.doc);
+          }
+        });
+        console.log(this.challenges);
+      }
+    });
   }
+
+  title = 'Phallenges!';
+
+  // google maps zoom level
+  zoom: number = 12;
+
+  // initial center position for the map
+  lat: number = 53.94683859574885;
+  lng: number = -1.0308574426583503;
+
+  geoCoder: google.maps.Geocoder | undefined;
+  userLocation = false;
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
@@ -74,11 +64,8 @@ export class ExplorerMapComponent {
     }
   }
 
-  clickedMarker() {
-    console.log('Marker Clicked');
-  }
-
-  clickedButton() {
-    this.notifyViewMap.emit(false);
+  clickedMarker(challenge: any) {
+    console.log(challenge);
+    this.notifyViewPhoto.emit(challenge);
   }
 }
