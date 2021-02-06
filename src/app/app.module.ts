@@ -31,6 +31,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ExplorerMapComponent } from './features/explorer/explorer-map/explorer-map.component';
 import { ExplorerViewPhotoComponent } from './features/explorer/explorer-view-photo/explorer-view-photo.component';
 import { ExplorerTakePhotoComponent } from './features/explorer/explorer-take-photo/explorer-take-photo.component';
+import { ChallengeCardComponent } from './features/creator/challenge-card/challenge-card.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg',
@@ -52,6 +53,7 @@ const firebaseConfig = {
     CameraComponent,
     TopNavBarComponent,
     BottomNavBarComponent,
+    ChallengeCardComponent,
   ],
   imports: [
     BrowserModule,

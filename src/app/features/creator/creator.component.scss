@@ -4,3 +4,21 @@ agm-map {
     width: 100%;
     height: 600px;
   }
+#challenge-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    mat-card {
+        margin-bottom: 1rem;
+    }
+    #title-card {
+        display: flex;
+    }
+    app-challenge-card {
+        margin-bottom: 1rem;
+    }
+}
+
+
+

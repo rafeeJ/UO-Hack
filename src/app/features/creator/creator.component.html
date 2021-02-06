@@ -1,45 +1,43 @@
-<div>
-    <!-- View Your Challenges -->
-    <div *ngIf="!createChallengeView">
-        <h1>Your Challenges</h1>
-        <ul *ngFor="let challenge of challenges">
-            <img src="{{ challenge.photoURL }}" width=500>
-        </ul>
-        <button (click)="createChallengeView = true">Create Challenge!</button>
-    </div>
+<div *ngIf="!createChallengeView; then thenBlock else elseBlock" style="text-align: center;"></div>
 
-    <!-- Create Challenge -->
-    <div *ngIf="createChallengeView">
-        <!-- Take photo -->
-        <p>url: {{ photoURL }}</p>
-        <app-camera *ngIf="createStep == 1" (cameraEvent)="receiveCameraEvent($event)"></app-camera>
-        <!-- Enter Location -->
-        <div *ngIf="createStep == 2">
-            <!-- Choose Challenge Location -->
-            <div *ngIf="chooseLocationView">
-                <!-- Map Stuff -->
-                <div>
-                    <agm-map
-                    [latitude]="lat"
-                    [longitude]="lng"
-                    [zoom]="zoom"
-                    [disableDefaultUI]="false"
-                    >
-                    <!-- Users Location -->
-                    <agm-marker *ngIf="userLocation" [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
-                        <agm-info-window>
-                        <strong>Your Location!</strong>
-                        </agm-info-window>
-                    </agm-marker>
-                    </agm-map>
-                </div>
-
-        <!-- Confirm Location-->
-        <button (click)="submitChallenge()">Submit Challenge</button>
-        </div>
-        <!-- Cancel at any point -->
-        <button (click)="cancelCreateChallenge()">Cancel</button>
-    </div>
-
-    </div>
+<ng-template #thenBlock>
+<div id="challenge-list">
+    <mat-card id="title-card">
+        <mat-card-title>Your Challenges</mat-card-title>
+        <button mat-raised-button color="accent" (click)="createChallengeView = true">Create Challenge!</button>
+    </mat-card> 
+    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge'></app-challenge-card>
 </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div style="text-align: center;">
+    <div [ngSwitch]="createStep">
+        <!-- Take photo -->
+        <app-camera    *ngSwitchCase=1    (cameraEvent)="receiveCameraEvent($event)"></app-camera>
+        <!-- Enter Location -->
+        <div           *ngSwitchCase=2>
+            <div>
+                <agm-map
+                [latitude]="lat"
+                [longitude]="lng"
+                [zoom]="zoom"
+                [disableDefaultUI]="false"
+                >
+                <!-- Users Location -->
+                <agm-marker *ngIf="userLocation" [latitude]="lat" [longitude]="lng" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                    <agm-info-window>
+                    <strong>Your Location!</strong>
+                    </agm-info-window>
+                </agm-marker>
+                </agm-map>
+            </div>
+            <!-- Create the challenge -->
+            <button (click)="submitChallenge()">Submit Challenge</button>
+        </div>
+    </div>
+<!-- Cancel at any point -->
+<button mat-raised-button (click)="cancelCreateChallenge()">Cancel</button>
+</div>
+</ng-template>
+       
