@@ -1,7 +1,8 @@
 import { DocumentData, DocumentReference } from "@angular/fire/firestore";
+import { Coordinates } from "./coordinates";
 
 export class Challenge {
-    constructor(public uid: string, public creatorUID: string, public location: [number, number], public photoURL: string, 
+    constructor(public uid: string, public creatorUID: string, public location: Coordinates , public photoURL: string, 
         public submissions: Array<DocumentReference>){};
 
 }

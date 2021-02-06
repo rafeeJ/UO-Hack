@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { Challenge } from 'src/app/services/fire-layer/challenge';
 import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service';
+import { Coordinates } from 'src/app/services/fire-layer/coordinates';
 
 @Component({
   selector: 'app-creator',
@@ -118,12 +119,21 @@ export class CreatorComponent implements OnInit {
 
   createChallenge() {
     // Build a Challenge object from user data.
-    var challenge: Challenge = new Challenge('testUID', this.user.uid, [this.lng, this.lat], this.photoURL, []);
+    var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
     // Add the new challenge to Firestore.
     this.fireLayerService.createChallenge(challenge);
-    // Reset the create challenge fields and go back to viewing all challenges.
+    // Reset the create challenge fields.
     this.cancelCreateChallenge();
+    // Go back to you challenges view.
+    this.createChallengeView = false;
   }
+
+  // submitChallenge() {
+  //   var challenge: Challenge = new Challenge('testUID', this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
+  //   this.fireLayerService.createChallenge(challenge);
+  //   // Reset the create challenge fields and go back to viewing all challenges.
+  //   this.cancelCreateChallenge();
+  // }
 
 }
 
