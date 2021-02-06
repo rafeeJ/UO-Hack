@@ -128,7 +128,7 @@ export class CreatorComponent implements OnInit {
 
   createChallenge() {
     // Build a Challenge object from user data.
-    var challenge: Challenge = new Challenge(uid(), this.user.uid, new Coordinates(this.lat, this.lng), this.photoURL, []);
+    var challenge: Challenge = new Challenge(uid(), this.user.uid, new Coordinates(this.lng, this.lat), this.photoURL, []);
     // Add the new challenge to Firestore.
     this.fireLayerService.createChallenge(challenge);
     // Reset the create challenge fields.
