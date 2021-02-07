@@ -65,6 +65,12 @@ export class ModeratorComponent implements OnInit {
     submission.correct = true;
     // Update submission in firestrore.
     this.fireLayerService.updateSubmission(submission);
+    // Increment score of user.
+    this.fireLayerService.getUser(submission.submitterUID).subscribe(userDocumentSnapshot => {
+      let submitter = userDocumentSnapshot.data();
+      submitter.points++;
+      this.fireLayerService.updateUser(submitter);
+    })
     // Get submissions again.
     this.submissions = this.getSubmissions(this.currentChallenge);
   }
@@ -92,6 +98,9 @@ export class ModeratorComponent implements OnInit {
     this.currentChallenge = this.challenges[this.currentChallengeIndex];
     // Get submissions for the new current challenge.
     this.submissions = this.getSubmissions(this.currentChallenge);
+    console.log(this.currentChallengeIndex);
+    console.log(this.challenges.length);
+    console.log(this.currentChallengeIndex >= this.challenges.length)
   }
 
 }

@@ -73,6 +73,10 @@ export class FireLayerService {
     return this.userCollection.snapshotChanges();
   }
 
+  updateUser(user: User) {
+    return this.firestore.doc<User>('users/' + user.uid).update(user);
+  }
+
   // SUBMISSIONS
 
   getSubmission(uid: string) {
