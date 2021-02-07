@@ -1,17 +1,26 @@
-<h1>Profile</h1>
+<div id="container">
 
-<h3>Display Name:</h3>
-<p>
-  <b>{{ user.displayName }}</b>
-</p>
-&nbsp;
-<h3>UID:</h3>
-<p>
-  <b>{{ user.uid }}</b>
-</p>
-&nbsp;
-<h3>Score:</h3>
-<p>
-  <b>{{ user.points }}</b>
-</p>
-&nbsp;
+  <mat-card style="text-align: center; margin-bottom: 1rem;">
+    <mat-card-title>Profile</mat-card-title>
+  </mat-card>
+<mat-card>
+<div style="text-align: center;">
+  <img style="border-radius: 50%;" src="{{ user.photoURL}}">
+</div>
+  <h3>Display Name:</h3>
+  <p>
+    <b>{{ user.displayName }}</b>
+  </p>
+  &nbsp;
+  <h3>UID:</h3>
+  <p>
+    <b>{{ user.uid }}</b>
+  </p>
+  &nbsp;
+  <h3>Score:</h3>
+  <p>
+    <b>{{ user.points }}</b>
+  </p>
+  &nbsp;
+</mat-card>
+</div>

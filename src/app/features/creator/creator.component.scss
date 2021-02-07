@@ -23,3 +23,9 @@ agm-map {
 #creator-view {
     height: calc(100vh - (2 * 56px));
 }
+
+#cancel-button {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+}
