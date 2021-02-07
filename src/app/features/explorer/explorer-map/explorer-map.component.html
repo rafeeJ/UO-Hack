@@ -1,9 +1,11 @@
-<div>
-  <h1>Pick a Challenge!</h1>
-</div>
+<div id="container">
+<mat-card style="margin-bottom: 1rem;">
+  <mat-card-title>Pick a Challenge!</mat-card-title>
+</mat-card>
 
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
+<mat-card style="padding: 0;">
 <agm-map
   [latitude]="lat"
   [longitude]="lng"
@@ -40,5 +42,5 @@
     </agm-marker>
   </agm-circle>
 </agm-map>
-
-<router-outlet></router-outlet>
+</mat-card>
+</div>

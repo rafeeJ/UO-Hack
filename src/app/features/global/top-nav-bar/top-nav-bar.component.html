@@ -23,7 +23,7 @@
   
   <mat-menu #beforeMenu="matMenu" xPosition="before">
     <div *ngIf="auth.user$ | async as user" style="text-align: center;">
-    <button mat-mini-fab style="background-position: center; background-size: contain;" [ngStyle]="{ 'background-image': 'url(' + user.photoURL + ')'}" ></button>
+    <button mat-mini-fab style="background-position: center; background-size: contain;" [routerLink]="['/profile']" [ngStyle]="{ 'background-image': 'url(' + user.photoURL + ')'}" ></button>
   <br>
   <span>{{ user.displayName }}</span>
 </div>
