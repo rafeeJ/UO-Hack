@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-explorer-view-photo',
@@ -11,10 +10,14 @@ export class ExplorerViewPhotoComponent implements OnInit {
   @Output() notifyTakePhoto = new EventEmitter<any>();
   @Input() challenge: any;
 
+  timeSinceChallengeSet: string;
+
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.challenge);
+    var currentDate = Date.now();
+    var secondsSinceChallengeSet = currentDate - this.challenge.data().created;
+    this.timeSinceChallengeSet = Math.floor((secondsSinceChallengeSet / (60 * 60 * 24))).toString() + ' days';
   }
 
   submitClicked() {
