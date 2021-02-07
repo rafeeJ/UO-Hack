@@ -16,8 +16,8 @@ export class ExplorerViewPhotoComponent implements OnInit {
 
   ngOnInit(): void {
     var currentDate = Date.now();
-    var secondsSinceChallengeSet = currentDate - this.challenge.data().created;
-    this.timeSinceChallengeSet = Math.floor((secondsSinceChallengeSet / (60 * 60 * 24))).toString() + ' days';
+    var msecondsSinceChallengeSet = currentDate - this.challenge.data().created;
+    this.timeSinceChallengeSet = Math.floor((msecondsSinceChallengeSet / (1000 * 60 * 60 * 24))).toString() + ' days';
   }
 
   submitClicked() {
