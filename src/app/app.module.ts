@@ -37,6 +37,8 @@ import { LeaderboardComponent } from './features/leaderboard/leaderboard.compone
 import { ProfileComponent } from './features/profile/profile.component';
 import { ModeratorComponent } from './features/moderator/moderator.component';
 
+import { HttpModule } from '@angular/http';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg',
   authDomain: 'uo-hack.firebaseapp.com',
@@ -60,7 +62,7 @@ const firebaseConfig = {
     ChallengeCardComponent,
     LeaderboardComponent,
     ProfileComponent,
-    ModeratorComponent
+    ModeratorComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,7 @@ const firebaseConfig = {
     MatIconModule,
     MatCardModule,
     MatMenuModule,
+    HttpModule,
   ],
   providers: [{ provide: BUCKET, useValue: 'uo-hack.appspot.com' }],
   bootstrap: [AppComponent],

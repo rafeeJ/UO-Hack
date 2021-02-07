@@ -1,26 +1,37 @@
 <div id="container">
-
-  <mat-card style="text-align: center; margin-bottom: 1rem;">
+  <mat-card style="text-align: center; margin-bottom: 1rem">
     <mat-card-title>Profile</mat-card-title>
   </mat-card>
-<mat-card>
-<div style="text-align: center;">
-  <img style="border-radius: 50%;" src="{{ user.photoURL}}">
-</div>
-  <h3>Display Name:</h3>
-  <p>
-    <b>{{ user.displayName }}</b>
-  </p>
-  &nbsp;
-  <h3>UID:</h3>
-  <p>
-    <b>{{ user.uid }}</b>
-  </p>
-  &nbsp;
-  <h3>Score:</h3>
-  <p>
-    <b>{{ user.points }}</b>
-  </p>
-  &nbsp;
-</mat-card>
+  <mat-card>
+    <div style="text-align: center">
+      <img style="border-radius: 50%" src="{{ user.photoURL }}" />
+    </div>
+    <h3>Display Name:</h3>
+    <p>
+      <b>{{ user.displayName }}</b>
+    </p>
+    &nbsp;
+    <h3>UID:</h3>
+    <p>
+      <b>{{ user.uid }}</b>
+    </p>
+    &nbsp;
+    <h3>Score:</h3>
+    <p>
+      <b>{{ user.points }}</b>
+    </p>
+    &nbsp;
+
+    <div *ngIf="rewards">
+      <h3>You have a reward to claim for Score: {{ user.points }}!</h3>
+      <button mat-raised-button (click)="Claim()">Generate Reward</button>
+      &nbsp;
+      <div *ngIf="claimed">
+        <p>Your reward URL is: {{ cash }}</p>
+        <button mat-raised-button>
+          <a href="{{ cash }}" target="_blank">Claim here</a>
+        </button>
+      </div>
+    </div>
+  </mat-card>
 </div>
