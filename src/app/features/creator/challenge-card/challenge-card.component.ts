@@ -12,9 +12,13 @@ export class ChallengeCardComponent implements OnInit {
 
   @Input() challenge: Challenge;
 
+  challengeCreated: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    var dateCreated = new Date(this.challenge.created);
+    this.challengeCreated = dateCreated.toLocaleDateString() + ' - ' + dateCreated.toLocaleTimeString().split(':').slice(0, 2).join(':');
   }
 
   deleteChallenge() {
