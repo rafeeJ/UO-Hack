@@ -9,7 +9,6 @@ import { FireLayerService } from 'src/app/services/fire-layer/fire-layer.service
 import { Submission } from 'src/app/services/fire-layer/submission';
 import { User } from 'src/app/services/fire-layer/user';
 import { uid } from 'uid';
-import { CameraComponent } from '../../camera/camera.component';
 
 @Component({
   selector: 'app-explorer-take-photo',
@@ -68,11 +67,11 @@ export class ExplorerTakePhotoComponent implements OnInit {
       .subscribe();
 
     var date = new Date();
-    var timestamp = new Timestamp(date.getTime(), 0);
+    var timestamp = date.getTime();
     var submission: Submission = new Submission(
       uid(),
       false,
-      String(timestamp),
+      timestamp,
       this.photoURL,
       this.user.uid
     );
@@ -84,7 +83,8 @@ export class ExplorerTakePhotoComponent implements OnInit {
       submissions.push(subID);
 
       var challenge: Challenge = new Challenge(
-        this.challenge.id,
+        this.challenge.data().uid,
+        this.challenge.data().created,
         this.challenge.data().creatorUID,
         this.challenge.data().location,
         this.challenge.data().photoURL,

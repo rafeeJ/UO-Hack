@@ -4,6 +4,7 @@ import { Coordinates } from './coordinates';
 export class Challenge {
   constructor(
     public uid: string,
+    public created: number,
     public creatorUID: string,
     public location: Coordinates,
     public photoURL: string,
@@ -16,6 +17,7 @@ export const challengeConverter = {
     console.log('NOT CONVERTING DOC TO CHALLENGE');
     return {
       uid: challenge.uid,
+      created: challenge.created,
       creatorUID: challenge.creatorUID,
       location: challenge.location,
       photoURL: challenge.photoURL,
@@ -27,6 +29,7 @@ export const challengeConverter = {
     const data = snapshot.data(options);
     return new Challenge(
       data.uid,
+      data.created,
       data.creatorUID,
       data.location,
       data.photoURL,
