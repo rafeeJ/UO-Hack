@@ -70,7 +70,7 @@ export class ExplorerTakePhotoComponent implements OnInit {
     var timestamp = date.getTime();
     var submission: Submission = new Submission(
       uid(),
-      false,
+      null,
       timestamp,
       this.photoURL,
       this.user.uid
