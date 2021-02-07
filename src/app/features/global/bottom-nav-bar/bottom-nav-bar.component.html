@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbarNav">
+<!-- <mat-toolbar class="toolbarNav">
   <mat-icon class="material-icons color_blue" [routerLink]="['/create']"
     >add</mat-icon
   >
@@ -6,4 +6,25 @@
   <mat-icon class="material-icons color_blue" [routerLink]="['/explorer']"
     >map</mat-icon
   >
-</mat-toolbar>
+</mat-toolbar> -->
+<div id="fab-dismiss" 
+     *ngIf="fabTogglerState==='active'" 
+     (click)="onToggleFab()">
+</div>
+
+<div class="fab-container">
+  <button mat-fab class="fab-toggler"
+          (click)="onToggleFab()">
+    <i class="material-icons" [@fabToggler]="{value: fabTogglerState}">add</i> <!-- Animation here -->
+  </button>
+  <div [@speedDialStagger]="buttons.length"> <!-- and here -->
+    <button *ngFor="let btn of buttons"
+            mat-mini-fab
+            class="fab-secondary"
+            color="secondary"
+            [routerLink]=btn.route
+            (click)="hideItems()">
+      <i class="material-icons">{{btn.icon}}</i>
+    </button>
+  </div>
+</div>
