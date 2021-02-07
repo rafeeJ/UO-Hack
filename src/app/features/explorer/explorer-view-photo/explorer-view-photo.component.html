@@ -1,1 +1,22 @@
-<p>explorer-view-photo works!</p>
+<div id="container">
+  <mat-card style="display: flex;justify-content: space-between; margin-bottom: 1rem;">
+    <button mat-raised-button (click)="back()">Back</button>
+    <mat-card-title>Details</mat-card-title>
+    <button mat-raised-button style="opacity: 0.0;">Back</button>
+  </mat-card>
+
+  <mat-card>
+    <div>
+      <img src="{{ challenge.data().photoURL }}" />
+      <p>Added {{timeSinceChallengeSet}} ago by User</p>
+      <p>14 Correct / 20 Submissions</p>
+    </div>
+
+    <div>
+      <button mat-raised-button color='primary' (click)="submitClicked()">
+        <mat-icon>camera_alt</mat-icon>
+        Submit
+      </button>
+    </div>
+  </mat-card>
+</div>

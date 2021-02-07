@@ -1,6 +1,8 @@
 import { MapsAPILoader } from '@agm/core';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExplorerComponent } from '../explorer.component';
+import { FireLayerService } from '../../../services/fire-layer/fire-layer.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-explorer-map',
@@ -8,15 +10,34 @@ import { ExplorerComponent } from '../explorer.component';
   styleUrls: ['./explorer-map.component.scss'],
 })
 export class ExplorerMapComponent {
-  _status: boolean = true;
-  @Output() notifyViewMap = new EventEmitter<boolean>();
-  @Input('viewMap')
-  set status(status: boolean) {
-    this._status = status || true;
-    console.log(status);
-  }
-  get status(): boolean {
-    return this._status;
+  @Output() notifyViewPhoto = new EventEmitter<any>();
+  @Output() notifyTakePhoto = new EventEmitter<any>();
+  @Input() prevLocation: any;
+
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private fireService: FireLayerService
+  ) {}
+
+  challenges: any = [];
+  lat: number;
+  lng: number;
+  userLat: number;
+  userLng: number;
+
+  ngOnInit() {
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder();
+    });
+
+    this.fireService.getAllChallenges().subscribe((data: any) => {
+      if (data) {
+        data.forEach((challengeDoc: any) => {
+          this.challenges.push(challengeDoc);
+        })
+      }
+    });
   }
 
   title = 'Phallenges!';
@@ -24,61 +45,27 @@ export class ExplorerMapComponent {
   // google maps zoom level
   zoom: number = 12;
 
-  circles = [
-    {
-      label: 'Challenge 1',
-      lat: 53.9568,
-      lng: -1.0308,
-    },
-    {
-      label: 'Challenge 2',
-      lat: 53.9578,
-      lng: -1.0218,
-    },
-    {
-      label: 'Challenge 3',
-      lat: 53.9448,
-      lng: -1.0518,
-    },
-    {
-      label: 'Challenge 4',
-      lat: 53.9328,
-      lng: -1.0278,
-    },
-  ];
-
-  // initial center position for the map
-  lat: number = 53.94683859574885;
-  lng: number = -1.0308574426583503;
-
   geoCoder: google.maps.Geocoder | undefined;
-  userLocation = false;
-
-  constructor(private mapsAPILoader: MapsAPILoader) {}
-
-  ngOnInit() {
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
-      this.userLocation = true;
-    });
-  }
 
   private setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+        this.userLat = position.coords.latitude;
+        this.userLng = position.coords.longitude;
         this.zoom = 12;
+
+        if (this.prevLocation == undefined || this.prevLocation == null) {
+          this.lat = this.userLat || 53.94683859574885;
+          this.lng = this.userLng || -1.0308574426583503;
+        } else {
+          this.lat = this.prevLocation.latitude;
+          this.lng = this.prevLocation.longitude;
+        }
       });
     }
   }
 
-  clickedMarker() {
-    console.log('Marker Clicked');
-  }
-
-  clickedButton() {
-    this.notifyViewMap.emit(false);
+  clickedMarker(challenge: any) {
+    this.notifyViewPhoto.emit(challenge);
   }
 }

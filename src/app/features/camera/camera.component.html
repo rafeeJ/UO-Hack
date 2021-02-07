@@ -6,6 +6,7 @@
     <div *ngIf="showWebcam; then thenBlock else elseBlock" style="text-align: center;"></div>
     
     <ng-template #thenBlock>
+        <mat-card>
         <!-- Take Photo -->
         <webcam [height]="300" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
             [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)" [captureImageData]="true"></webcam>
@@ -13,9 +14,11 @@
         <button mat-mini-fab (click)="capture()">
             <mat-icon>camera</mat-icon>
         </button>
+    </mat-card>
     </ng-template>
     
     <ng-template #elseBlock>
+        <mat-card>
         <!-- Review Photo -->
         <img id="finalImage" [src]="webcamImage.imageAsDataUrl"/>
         <br />
@@ -23,5 +26,6 @@
             <button mat-raised-button (click)="toggleWebcam()">Try Again</button>
             <button mat-raised-button color="primary" (click)="emitPhoto()">Use This Photo</button>
         </div>
+    </mat-card>
     </ng-template>
 </div>

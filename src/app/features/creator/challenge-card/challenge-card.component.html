@@ -1,4 +1,7 @@
 <mat-card>
-    <mat-card-title>A Phallenge</mat-card-title>
-    <img mat-card-image src="{{ challenge.photoURL }}" alt="Picture of a map">
+    <mat-card-title>{{ this.challenge.location.longitude + ", " + this.challenge.location.latitude }}</mat-card-title>
+    <img mat-card-image src="{{ challenge.photoURL }}" alt="challenge_image">
+    <mat-card-actions>
+        <button mat-button (click)="deleteChallenge()" >DELETE</button>
+      </mat-card-actions>
 </mat-card>

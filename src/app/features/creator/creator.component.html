@@ -6,7 +6,7 @@
         <mat-card-title>Your Challenges</mat-card-title>
         <button mat-raised-button color="accent" (click)="createChallengeView = true">Create Challenge!</button>
     </mat-card> 
-    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge'></app-challenge-card>
+    <app-challenge-card *ngFor="let challenge of challenges" [challenge]='challenge' (deleteChallengeEvent)="receiveDeleteChallengeEvent($event)"></app-challenge-card>
 </div>
 </ng-template>
 
@@ -16,8 +16,14 @@
         <!-- Take photo -->
         <app-camera    *ngSwitchCase=1    (cameraEvent)="receiveCameraEvent($event)"></app-camera>
         <!-- Enter Location -->
-        <div           *ngSwitchCase=2>
-            <div style="background-color: rgba(0, 0, 0, 0.38);">
+        <div           *ngSwitchCase=2 style="padding: 1rem;">
+            <mat-card style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                <mat-card-title>Select Location</mat-card-title>
+                <!-- Create the challenge -->
+            <button mat-raised-button (click)="createChallenge()">Finish!</button>
+            </mat-card>
+            <div>
+                <mat-card style="padding: 0;">
                 <agm-map
                 [latitude]="lat"
                 [longitude]="lng"
@@ -31,13 +37,12 @@
                     </agm-info-window>
                 </agm-marker>
                 </agm-map>
+            </mat-card>
             </div>
-            <!-- Create the challenge -->
-            <button style="float: right; margin-right: 69px;" mat-raised-button (click)="submitChallenge()">Submit Challenge</button>
         </div>
     </div>
 <!-- Cancel at any point -->
-<button mat-raised-button color="warn" (click)="cancelCreateChallenge()">Cancel</button>
+<button id="cancel-button" mat-raised-button color="warn" (click)="cancelCreateChallenge()">Cancel</button>
 </div>
 </ng-template>
        

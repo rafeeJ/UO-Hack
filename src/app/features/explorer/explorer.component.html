@@ -1,13 +1,22 @@
-<h1>{{ title }}</h1>
-
 <app-explorer-map
   *ngIf="viewMap"
-  [viewMap]="viewMap"
-  (notifyViewMap)="onNotifyViewMap($event)"
+  [prevLocation]="prevLocation"
+  (notifyViewPhoto)="onNotifyViewPhoto($event)"
+  (notifyTakePhoto)="onNotifyTakePhoto()"
 >
-  ></app-explorer-map
+  </app-explorer-map
 >
-<app-explorer-view-photo *ngIf="viewPhoto"></app-explorer-view-photo>
-<app-explorer-take-photo *ngIf="takePhoto"></app-explorer-take-photo>
 
-<router-outlet></router-outlet>
+<app-explorer-view-photo
+  *ngIf="viewPhoto"
+  [challenge]="challenge"
+  (notifyViewMap)="onNotifyViewMap($event)"
+  (notifyTakePhoto)="onNotifyTakePhoto()"
+></app-explorer-view-photo>
+
+<app-explorer-take-photo
+  *ngIf="takePhoto"
+  [challenge]="challenge"
+  (notifyViewMap)="onNotifyViewMap($event)"
+  (notifyViewPhoto)="onNotifyViewPhoto($event)"
+></app-explorer-take-photo>
