@@ -35,6 +35,7 @@ import { ExplorerTakePhotoComponent } from './features/explorer/explorer-take-ph
 import { ChallengeCardComponent } from './features/creator/challenge-card/challenge-card.component';
 import { LeaderboardComponent } from './features/leaderboard/leaderboard.component';
 import { ProfileComponent } from './features/profile/profile.component';
+import { ModeratorComponent } from './features/moderator/moderator.component';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg',
@@ -59,6 +60,7 @@ const firebaseConfig = {
     ChallengeCardComponent,
     LeaderboardComponent,
     ProfileComponent,
+    ModeratorComponent
   ],
   imports: [
     BrowserModule,
