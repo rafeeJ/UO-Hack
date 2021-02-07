@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
         map(user => !!user),
         tap(loggedIn => {
           if(!loggedIn) {
-            console.log("Computer says no!");
+            console.debug("Computer says no!");
             this.router.navigate(['/'])
           }
         })

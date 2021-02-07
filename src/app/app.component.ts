@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'uo-hack';
+  title = 'Whats That Space';
   
   ngOnInit() {
-    console.log('test');
+    console.debug('test');
   }
 }

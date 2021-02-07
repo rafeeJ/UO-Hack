@@ -25,7 +25,7 @@ export class ExplorerViewPhotoComponent implements OnInit {
   }
 
   back() {
-    console.log(this.challenge.data().location);
+    console.debug(this.challenge.data().location);
     this.notifyViewMap.emit(this.challenge.data().location);
   }
 }

@@ -31,7 +31,7 @@ export class ExplorerTakePhotoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.challenge.data());
+    console.debug(this.challenge.data());
   }
 
   photoURL: string = '';
@@ -86,7 +86,7 @@ export class ExplorerTakePhotoComponent implements OnInit {
                   this.challenge.data().photoURL,
                   submissions
                 );
-                console.log(challenge);
+                console.debug(challenge);
                 this.fireLayerService.updateChallenge(challenge);
 
                 alert('Your image has been submitted!');

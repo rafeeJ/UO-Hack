@@ -14,7 +14,7 @@ export class Challenge {
 
 export const challengeConverter = {
   toFirestore(challenge: Challenge): DocumentData {
-    console.log('NOT CONVERTING DOC TO CHALLENGE');
+    console.debug('NOT CONVERTING DOC TO CHALLENGE');
     return {
       uid: challenge.uid,
       created: challenge.created,
@@ -25,7 +25,7 @@ export const challengeConverter = {
     };
   },
   fromFirestore(snapshot: any, options: any): Challenge {
-    console.log('CONVERTING DOC TO CHALLENGE');
+    console.debug('CONVERTING DOC TO CHALLENGE');
     const data = snapshot.data(options);
     return new Challenge(
       data.uid,

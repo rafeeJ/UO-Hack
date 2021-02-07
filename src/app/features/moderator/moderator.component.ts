@@ -27,7 +27,7 @@ export class ModeratorComponent implements OnInit {
     this.authService.user$.subscribe(user_input => {
       // Set the current user.
       this.user = user_input;
-      // console.log("user: "+this.user);
+      // console.debug("user: "+this.user);
     });
     // Get all the challenges.
     // this.fireLayerService.getAllChallenges().subscribe(challengeQueryResult => {
@@ -99,9 +99,9 @@ export class ModeratorComponent implements OnInit {
     this.currentChallenge = this.challenges[this.currentChallengeIndex];
     // Get submissions for the new current challenge.
     this.submissions = this.getSubmissions(this.currentChallenge);
-    console.log(this.currentChallengeIndex);
-    console.log(this.challenges.length);
-    console.log(this.currentChallengeIndex >= this.challenges.length)
+    console.debug(this.currentChallengeIndex);
+    console.debug(this.challenges.length);
+    console.debug(this.currentChallengeIndex >= this.challenges.length)
   }
 
 }
