@@ -36,6 +36,7 @@ import { ChallengeCardComponent } from './features/creator/challenge-card/challe
 import { LeaderboardComponent } from './features/leaderboard/leaderboard.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { ModeratorComponent } from './features/moderator/moderator.component';
+import { StopPropDirective } from './features/explorer/stop-prop.directive';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAFq476GBDeLZ9IoUe_h18bmU9xB80u4Vg',
@@ -60,7 +61,8 @@ const firebaseConfig = {
     ChallengeCardComponent,
     LeaderboardComponent,
     ProfileComponent,
-    ModeratorComponent
+    ModeratorComponent,
+    StopPropDirective
   ],
   imports: [
     BrowserModule,

@@ -16,7 +16,7 @@
         <!-- Take photo -->
         <app-camera    *ngSwitchCase=1    (cameraEvent)="receiveCameraEvent($event)"></app-camera>
         <!-- Enter Location -->
-        <div           *ngSwitchCase=2 style="padding: 1rem;">
+        <div           *ngSwitchCase=2 style="padding: 1rem;" appStopProp>
             <mat-card style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
                 <mat-card-title>Select Location</mat-card-title>
                 <!-- Create the challenge -->
