@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-    <span [routerLink]="['/']">What's That Place</span>
+    <span [routerLink]="['/']">What's That Space</span>
     <span class="spacer"></span>
     <div *ngIf="auth.user$ | async; then authenticated else guest"></div>
   </mat-toolbar>
@@ -15,14 +15,19 @@
   <ng-template #authenticated>
     <div *ngIf="auth.user$ | async as user">
       <span class="spacer"></span>
-      <button mat-mini-fab style="background-position: center; background-size: contain;" [ngStyle]="{ 'background-image': 'url(' + user.photoURL + ')'}" [matMenuTriggerFor]="beforeMenu">
-        <!-- <img [src]="user.photoURL" alt=""> -->
+      <button mat-icon-button color="white" [matMenuTriggerFor]="beforeMenu">
+        <mat-icon>menu</mat-icon>
       </button>
     </div>
   </ng-template>
   
   <mat-menu #beforeMenu="matMenu" xPosition="before">
-    <button mat-menu-item [routerLink]="['/profile']">My Profile</button>
+    <div *ngIf="auth.user$ | async as user" style="text-align: center;">
+    <button mat-mini-fab style="background-position: center; background-size: contain;" [ngStyle]="{ 'background-image': 'url(' + user.photoURL + ')'}" ></button>
+  <br>
+  <span>{{ user.displayName }}</span>
+</div>
+    <button mat-menu-item [routerLink]="['/leaderboard']">leaderboard</button>
     <button mat-menu-item (click)="auth.signOut()">Sign Out</button>
   </mat-menu>
   
