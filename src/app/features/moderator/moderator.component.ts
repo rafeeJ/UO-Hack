@@ -30,19 +30,20 @@ export class ModeratorComponent implements OnInit {
       // console.log("user: "+this.user);
     });
     // Get all the challenges.
+    // this.fireLayerService.getAllChallenges().subscribe(challengeQueryResult => {
     this.fireLayerService.getAllChallenges().subscribe(challengeQueryResult => {
       // Todo: Check if challenge has any unmarked submissions.
       var newChallenges: Challenge[] = [];
       challengeQueryResult.forEach(challengeDocument => {
-        newChallenges.push(challengeDocument.payload.doc.data());
+        newChallenges.push(challengeDocument.data());
       })
       this.challenges = newChallenges;
       // Set the currentChallenge.
       this.currentChallenge = this.challenges[this.currentChallengeIndex];
       // Set submissions for currentChallenge.
       this.submissions = this.getSubmissions(this.currentChallenge);
-    });
-  }
+      })
+    };
 
   getSubmissions(challenge: Challenge): Submission[] {
     var submissions: Submission[] = [];
