@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
 
 import { WebcamModule } from 'ngx-webcam';
 
@@ -62,7 +63,7 @@ const firebaseConfig = {
     LeaderboardComponent,
     ProfileComponent,
     ModeratorComponent,
-    StopPropDirective
+    StopPropDirective,
   ],
   imports: [
     BrowserModule,
@@ -84,6 +85,7 @@ const firebaseConfig = {
     MatIconModule,
     MatCardModule,
     MatMenuModule,
+    HttpModule,
   ],
   providers: [{ provide: BUCKET, useValue: 'uo-hack.appspot.com' }],
   bootstrap: [AppComponent],
