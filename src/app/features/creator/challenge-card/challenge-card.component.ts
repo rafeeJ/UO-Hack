@@ -18,7 +18,12 @@ export class ChallengeCardComponent implements OnInit {
   }
 
   deleteChallenge() {
-    this.deleteChallengeEvent.emit(this.challenge);
+    if(confirm("Are you sure you wanted to delete?")) {
+      this.deleteChallengeEvent.emit(this.challenge);
+    } else {
+      console.debug('User cancelled.')
+    }
+    
   }
 
 }
