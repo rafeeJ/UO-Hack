@@ -80,7 +80,7 @@ export class FireLayerService {
   getSubmission(uid: string) {
     return this.firestore.doc<Submission>('submissions/' + uid).get();
   }
-
+  
   createSubmission(submission: Submission) {
     return new Promise<any>((resolve, reject) => {
       this.submissionCollection.add(Object.assign({}, submission)).then(

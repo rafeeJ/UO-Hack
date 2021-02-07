@@ -18,7 +18,6 @@ import { Coordinates } from 'src/app/services/fire-layer/coordinates';
 })
 export class CreatorComponent implements OnInit {
 
-  // dummy challenges.
   challenges: Challenge[] = [];
 
   // true: create challenge view, false: your challenges view.
