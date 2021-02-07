@@ -1,6 +1,12 @@
-import { DocumentReference } from "@angular/fire/firestore";
+import { DocumentReference } from '@angular/fire/firestore';
 
 export class User {
-    constructor(public activeChallenge: DocumentReference, public displayName: string,
-         public email: string, public photoURL: string, public uid: string) {};
+  constructor(
+    public activeChallenge: DocumentReference,
+    public displayName: string,
+    public email: string,
+    public photoURL: string,
+    public points: number,
+    public uid: string
+  ) {}
 }
