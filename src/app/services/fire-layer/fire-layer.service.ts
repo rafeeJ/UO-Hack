@@ -42,7 +42,7 @@ export class FireLayerService {
   }
 
   getAllChallenges() {
-    return this.challengeCollection.snapshotChanges();
+    return this.challengeCollection.get();
   }
 
   createChallenge(challenge: Challenge) {
@@ -70,7 +70,7 @@ export class FireLayerService {
   }
 
   getAllUsers() {
-    return this.userCollection.snapshotChanges();
+    return this.userCollection.get();
   }
 
   // SUBMISSIONS
@@ -98,9 +98,5 @@ export class FireLayerService {
 
   deleteSubmission(uid: string) {
     return this.firestore.doc<Submission>('submissions/' + uid).delete();
-  }
-
-  getSubmissionReference(uid: string) {
-    return this.firestore.doc<Submission>('submissions' + uid);
   }
 }

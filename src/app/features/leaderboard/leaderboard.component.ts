@@ -18,14 +18,10 @@ export class LeaderboardComponent implements OnInit {
   ngOnInit() {
     this.fireService.getAllUsers().subscribe((data: any) => {
       if (data) {
-        data.map((test: any) => {
-          if (!this.users.some((e: any) => e.id === test.payload.doc.id)) {
-            this.users.push(test.payload.doc.data());
-            console.log(test.payload.doc.data());
-          }
-        });
+        data.forEach((user: any) => {
+          this.users.push(user.data());
+        })
         this.dataSource = new MatTableDataSource<User>(this.users.slice(0, 10));
-        console.log(this.dataSource);
       }
     });
   }

@@ -33,11 +33,9 @@ export class ExplorerMapComponent {
 
     this.fireService.getAllChallenges().subscribe((data: any) => {
       if (data) {
-        data.map((test: any) => {
-          if (!this.challenges.some((e: any) => e.id === test.payload.doc.id)) {
-            this.challenges.push(test.payload.doc);
-          }
-        });
+        data.forEach((challengeDoc: any) => {
+          this.challenges.push(challengeDoc);
+        })
       }
     });
   }
