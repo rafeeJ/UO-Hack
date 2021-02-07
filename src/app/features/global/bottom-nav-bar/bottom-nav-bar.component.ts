@@ -11,6 +11,10 @@ export class BottomNavBarComponent {
 
   fabButtons = [
     {
+      icon: 'home',
+      route: ['/']
+    },
+    {
       icon: 'add_location_alt',
       route: ['/create']
     },
@@ -19,8 +23,8 @@ export class BottomNavBarComponent {
       route: ['/explorer']
     },
     {
-      icon: 'home',
-      route: ['/']
+      icon: 'leaderboard',
+      route: ['/leaderboard']
     }
   ];
   
