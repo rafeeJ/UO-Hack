@@ -10,10 +10,9 @@ import { ModeratorComponent } from './features/moderator/moderator.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'explorer', component: ExplorerComponent },
-  { path: '', component: LandingComponent },
+  { path: 'explorer', component: ExplorerComponent, canActivate: [AuthGuard] },
   { path: 'leaderboard', component: LeaderboardComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'create', component: CreatorComponent, canActivate: [AuthGuard] },
   { path: 'mod', component: ModeratorComponent, canActivate: [AuthGuard] }
 ];
