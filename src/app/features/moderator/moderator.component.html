@@ -3,6 +3,8 @@
 <button mat-button [disabled]="currentChallengeIndex >= challenges.length" (click)="nextChallenge()">NEXT</button>
 <h1>Original image</h1>
 <img mat-card-image src="{{ currentChallenge.photoURL }}" alt="challenge_image">
+<h1>Submissions</h1>
+<p>{{ submissions.length }} submissions need marking.</p>
 <div *ngFor="let submission of submissions">
     <mat-card>
         <mat-card-title>{{ submission.submitterUID }}</mat-card-title>

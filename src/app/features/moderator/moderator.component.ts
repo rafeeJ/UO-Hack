@@ -33,7 +33,9 @@ export class ModeratorComponent implements OnInit {
     this.fireLayerService.getAllChallenges().subscribe(challengeQueryResult => {
       // Todo: Check if challenge has any unmarked submissions.
       var newChallenges: Challenge[] = [];
-      challengeQueryResult.forEach(challengeDocument => newChallenges.push(challengeDocument.payload.doc.data()))
+      challengeQueryResult.forEach(challengeDocument => {
+        newChallenges.push(challengeDocument.payload.doc.data());
+      })
       this.challenges = newChallenges;
       // Set the currentChallenge.
       this.currentChallenge = this.challenges[this.currentChallengeIndex];
@@ -49,8 +51,10 @@ export class ModeratorComponent implements OnInit {
     for (i = 0; i < challenge.submissions.length; i++) {
       // Get submission and add to submissions.
       this.fireLayerService.getSubmission(String(challenge.submissions[i])).subscribe(submissionQueryResult => {
-        // Todo: Check if submission has already been marked as accepted/rejected.
-        submissions.push(submissionQueryResult.data())
+        // Only add un-marked submissions.
+        if (submissionQueryResult.data().correct == undefined) {
+          submissions.push(submissionQueryResult.data())
+        }
       })
     }
     return submissions
