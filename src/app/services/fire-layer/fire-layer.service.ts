@@ -32,7 +32,6 @@ export class FireLayerService {
 
   updateChallenge(challenge: Challenge) {
     challenge.location = Object.assign({}, challenge.location);
-    challenge.created = Object.assign({}, challenge.created);
     return this.firestore
       .doc<Challenge>('challenges/' + challenge.uid)
       .set(Object.assign({}, challenge));
@@ -81,7 +80,6 @@ export class FireLayerService {
   }
 
   createSubmission(submission: Submission) {
-    submission.created = Object.assign({}, submission.created);
     return new Promise<any>((resolve, reject) => {
       this.submissionCollection.doc(submission.uid).set(Object.assign({}, submission)).then(
         (res) => {
