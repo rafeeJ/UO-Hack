@@ -68,16 +68,15 @@ export class ExplorerTakePhotoComponent implements OnInit {
 
     var date = new Date();
     var timestamp = date.getTime();
+    var subID = uid();
     var submission: Submission = new Submission(
-      uid(),
+      subID,
       null,
       timestamp,
       this.photoURL,
       this.user.uid
     );
-    var subID;
     this.fireLayerService.createSubmission(submission).then((id) => {
-      subID = id;
 
       var submissions = this.challenge.data().submissions;
       submissions.push(subID);
