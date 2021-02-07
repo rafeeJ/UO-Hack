@@ -61,39 +61,39 @@ export class ExplorerTakePhotoComponent implements OnInit {
         finalize(() =>
           fileRef
             .getDownloadURL()
-            .subscribe((downloadURL) => (this.photoURL = downloadURL))
-        )
-      )
+            .subscribe((downloadURL) => {
+              this.photoURL = downloadURL;
+              var date = new Date();
+              var timestamp = date.getTime();
+              var subID = uid();
+              var submission: Submission = new Submission(
+                subID,
+                null,
+                timestamp,
+                this.photoURL,
+                this.user.uid
+              );
+              this.fireLayerService.createSubmission(submission).then((id) => {
+
+                var submissions = this.challenge.data().submissions;
+                submissions.push(subID);
+
+                var challenge: Challenge = new Challenge(
+                  this.challenge.data().uid,
+                  this.challenge.data().created,
+                  this.challenge.data().creatorUID,
+                  this.challenge.data().location,
+                  this.challenge.data().photoURL,
+                  submissions
+                );
+                console.log(challenge);
+                this.fireLayerService.updateChallenge(challenge);
+
+                alert('Your image has been submitted!');
+                this.notifyViewMap.emit();
+                      })
+                    })
+        ))
       .subscribe();
-
-    var date = new Date();
-    var timestamp = date.getTime();
-    var subID = uid();
-    var submission: Submission = new Submission(
-      subID,
-      null,
-      timestamp,
-      this.photoURL,
-      this.user.uid
-    );
-    this.fireLayerService.createSubmission(submission).then((id) => {
-
-      var submissions = this.challenge.data().submissions;
-      submissions.push(subID);
-
-      var challenge: Challenge = new Challenge(
-        this.challenge.data().uid,
-        this.challenge.data().created,
-        this.challenge.data().creatorUID,
-        this.challenge.data().location,
-        this.challenge.data().photoURL,
-        submissions
-      );
-      console.log(challenge);
-      this.fireLayerService.updateChallenge(challenge);
-
-      alert('Your image has been submitted!');
-      this.notifyViewMap.emit();
-    });
   }
 }
