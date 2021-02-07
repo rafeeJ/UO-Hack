@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.user$.subscribe((user_input) => {
       this.user = user_input;
-      this.user.points += 2;
+      this.user.points;
 
       if (this.user.points > 0) {
         this.rewards = true;
