@@ -21,8 +21,21 @@ export class LeaderboardComponent implements OnInit {
         data.forEach((user: any) => {
           this.users.push(user.data());
         })
+        this.users.sort(this.compareUserPointsDescending);
         this.dataSource = new MatTableDataSource<User>(this.users.slice(0, 10));
       }
     });
+  }
+
+  compareUserPointsDescending(a: User, b: User){
+    if (a.points < b.points){
+      return 1;
+    }
+    else if (a.points > b.points){
+      return -1;
+    }
+    else {
+      return 0;
+    }
   }
 }
