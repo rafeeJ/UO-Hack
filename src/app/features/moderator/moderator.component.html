@@ -1,17 +1,26 @@
-<button mat-button [disabled]="currentChallengeIndex <= 0" (click)="previousChallenge()">PREVIOUS</button>
-<p>Challenge {{ currentChallengeIndex + 1 }} of {{ challenges.length }}.</p>
-<button mat-button [disabled]="currentChallengeIndex >= challenges.length" (click)="nextChallenge()">NEXT</button>
-<h1>Original image</h1>
-<img mat-card-image src="{{ currentChallenge.photoURL }}" alt="challenge_image">
-<h1>Submissions</h1>
-<p>{{ submissions.length }} submissions need marking.</p>
-<div *ngFor="let submission of submissions">
-    <mat-card>
-        <mat-card-title>{{ submission.submitterUID }}</mat-card-title>
-        <img mat-card-image src="{{ submission.photoURL }}" alt="submission_image">
-        <mat-card-actions>
-            <button mat-button (click)="acceptSubmission(currentChallenge, submission)">ACCEPT</button>
-            <button mat-button (click)="rejectSubmission(currentChallenge, submission)">REJECT</button>
-        </mat-card-actions>
+<div id="container">
+    <mat-card style="display: flex; margin-bottom: 1rem;">
+        <button mat-button [disabled]="currentChallengeIndex <= 0" (click)="previousChallenge()">PREVIOUS</button>
+        <mat-card-subtitle>Challenge {{ currentChallengeIndex + 1 }} of {{ challenges.length }}</mat-card-subtitle>
+        <button mat-button [disabled]="currentChallengeIndex >= challenges.length" (click)="nextChallenge()">NEXT</button>
     </mat-card>
+
+<mat-card>
+    <h1>Original image</h1>
+    <img mat-card-image src="{{ currentChallenge.photoURL }}" alt="challenge_image">
+    <h1>Submissions</h1>
+    <p>{{ submissions.length }} submissions need marking.</p>
+    <div *ngFor="let submission of submissions">
+        <mat-card>
+            <mat-card-title>{{ submission.submitterUID }}</mat-card-title>
+            <img mat-card-image src="{{ submission.photoURL }}" alt="submission_image">
+            <mat-card-actions>
+                <button mat-button (click)="acceptSubmission(currentChallenge, submission)">ACCEPT</button>
+                <button mat-button (click)="rejectSubmission(currentChallenge, submission)">REJECT</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</mat-card>
+
+    
 </div>
